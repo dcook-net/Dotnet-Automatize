@@ -4,29 +4,11 @@ using System.IO.Abstractions.TestingHelpers;
 using System.Linq;
 using System.Reflection;
 using System.Xml;
-using static  AutoUpgrade.OS;
 
 namespace AutoUpgrade.Tests
 {
     public class ProjectFileUpdaterTestBase
     {
-        protected string SampleProjFileXmlContent;
-        protected string InvalidProjFileXmlContent;
-        protected XmlDocument ExpectedProjFile;
-
-        public ProjectFileUpdaterTestBase()
-        {
-            SampleProjFileXmlContent = ReadResourceFile("sampleProjFile.xml");
-            InvalidProjFileXmlContent = ReadResourceFile("InvalidXmlFile.xml");
-            ExpectedProjFile = ConvertToXmlDoc(ReadResourceFile("ExpectedProjFile.xml"));
-
-            MockFileSystem = new MockFileSystem(new Dictionary<string, MockFileData>
-            {
-                { $"C:{Slash}dev{Slash}sampleProjFile.xml", new MockFileData(SampleProjFileXmlContent) },
-                { $"C:{Slash}dev{Slash}InvalidXmlFile.xml", new MockFileData(InvalidProjFileXmlContent) }
-            });
-        }
-
         protected static XmlDocument ConvertToXmlDoc(string xml)
         {
             var updatedXmlDoc = new XmlDocument();
@@ -35,9 +17,7 @@ namespace AutoUpgrade.Tests
         }
 
         protected static Assembly GetExecutingAssembly => Assembly.GetExecutingAssembly();
-
-        public MockFileSystem MockFileSystem { get; set; }
-
+        
         protected static string ReadResourceFile(string resourcesFileName)
         {
             var assembly = GetExecutingAssembly;
@@ -59,10 +39,10 @@ namespace AutoUpgrade.Tests
                 .ToList();
         }
 
-        protected string ReadFileFromFileSystem(FileInfo fileInfo)
+        protected string ReadFileFromFileSystem(FileInfo fileInfo, MockFileSystem mockFileSystem)
         {
             string content;
-            using (var streamReader = MockFileSystem.File.OpenText(fileInfo.FullName))
+            using (var streamReader = mockFileSystem.File.OpenText(fileInfo.FullName))
             {
                 content = streamReader.ReadToEnd();
             }

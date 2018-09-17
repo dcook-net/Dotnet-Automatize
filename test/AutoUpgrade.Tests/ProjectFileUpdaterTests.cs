@@ -20,46 +20,57 @@ namespace AutoUpgrade.Tests
         {
             _console = new PhysicalConsole();
             _version2Point1Updater = new Version2Point1Updater();
-            _updater = new FileUpdater(MockFileSystem, _console);
         }
         
         [Test]
         public void ShouldUpdateSuppliedFileWithExpectedChanges()
         {
-            MockFileSystem = new MockFileSystem(new Dictionary<string, MockFileData>
+            var mockFileSystem = new MockFileSystem(new Dictionary<string, MockFileData>
             {
-                { $"C:{Slash}dev{Slash}sampleProjFile.xml", new MockFileData(SampleProjFileXmlContent) },
-                { $"C:{Slash}dev{Slash}InvalidXmlFile.xml", new MockFileData(InvalidProjFileXmlContent) }
+                { $"C:{Slash}dev{Slash}SampleProjFile.xml", new MockFileData(ReadResourceFile("SampleProjFile.xml")) },
+                { $"C:{Slash}dev{Slash}InvalidXmlFile.xml", new MockFileData(ReadResourceFile("InvalidXmlFile.xml")) }
             });
 
-            _updater = new FileUpdater(MockFileSystem, _console);
+            _updater = new FileUpdater(mockFileSystem, _console);
 
             var projFiles = new List<FileInfo>
             {
-                new FileInfo($"C:{Slash}dev{Slash}sampleProjFile.xml")
+                new FileInfo($"C:{Slash}dev{Slash}SampleProjFile.xml")
             };
+
+            var expectedProjectFile = ConvertToXmlDoc(ReadResourceFile("ExpectedProjFile.xml"));
 
             _updater.UpdateProjectFiles(projFiles, _version2Point1Updater);
 
-            var updatedXmlDoc = ConvertToXmlDoc(ReadFileFromFileSystem(projFiles.First()));
-            
-            Assert.That(updatedXmlDoc, Is.EqualTo(ExpectedProjFile));
+            var updatedXmlDoc = ConvertToXmlDoc(ReadFileFromFileSystem(projFiles.First(), mockFileSystem));
+
+            Assert.That(updatedXmlDoc, Is.EqualTo(expectedProjectFile));
         }
 
         [Test]
         public void ShouldLogErrorsAndContinue()
         {
+            var mockFileSystem = new MockFileSystem(new Dictionary<string, MockFileData>
+            {
+                { $"C:{Slash}dev{Slash}SampleProjFile.xml", new MockFileData(ReadResourceFile("SampleProjFile.xml")) },
+                { $"C:{Slash}dev{Slash}InvalidXmlFile.xml", new MockFileData(ReadResourceFile("InvalidXmlFile.xml")) }
+            });
+
+            _updater = new FileUpdater(mockFileSystem, _console);
+
             var projFiles = new List<FileInfo>
             {
                 new FileInfo($"C:{Slash}dev{Slash}InvalidXmlFile.xml"),
                 new FileInfo($"C:{Slash}dev{Slash}sampleProjFile.xml")
             };
 
+            var expectedProjectFile = ConvertToXmlDoc(ReadResourceFile("ExpectedProjFile.xml"));
+
             _updater.UpdateProjectFiles(projFiles, _version2Point1Updater);
 
-            var updatedXmlDoc = ConvertToXmlDoc(ReadFileFromFileSystem(projFiles[1]));
+            var updatedXmlDoc = ConvertToXmlDoc(ReadFileFromFileSystem(projFiles[1], mockFileSystem));
 
-            Assert.That(updatedXmlDoc, Is.EqualTo(ExpectedProjFile));
+            Assert.That(updatedXmlDoc, Is.EqualTo(expectedProjectFile));
 
             //            _console.Out.WriteLine();
             
@@ -69,12 +80,12 @@ namespace AutoUpgrade.Tests
         [Test]
         public void ShouldNotUpdateTargetFrameworkWhenTargetingNetStandard()
         {
-            MockFileSystem = new MockFileSystem(new Dictionary<string, MockFileData>
+            var mockFileSystem = new MockFileSystem(new Dictionary<string, MockFileData>
             {
                 { $"C:{Slash}dev{Slash}NetStandardXmlFile.xml", new MockFileData(ReadResourceFile("NetStandardXmlFile.xml")) }
             });
 
-            _updater = new FileUpdater(MockFileSystem, _console);
+            _updater = new FileUpdater(mockFileSystem, _console);
 
             var projFiles = new List<FileInfo>
             {
@@ -83,7 +94,7 @@ namespace AutoUpgrade.Tests
 
             _updater.UpdateProjectFiles(projFiles, _version2Point1Updater);
 
-            var updatedXmlDoc = ConvertToXmlDoc(ReadFileFromFileSystem(projFiles[0]));
+            var updatedXmlDoc = ConvertToXmlDoc(ReadFileFromFileSystem(projFiles[0], mockFileSystem));
             var expectedNetStandardProjFile = ConvertToXmlDoc(ReadResourceFile("ExpectedNetStandardXmlFile.xml"));
 
             Assert.That(updatedXmlDoc, Is.EqualTo(expectedNetStandardProjFile));

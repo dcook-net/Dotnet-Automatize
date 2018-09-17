@@ -17,17 +17,18 @@ namespace AutoUpgrade.Tests
         [Test]
         public void ShouldUpdateXmlContentAsExpected()
         {
-            var updatedXml = _updater.UpdateProjectFileContents(SampleProjFileXmlContent);
+            var updatedXml = _updater.UpdateProjectFileContents(ReadResourceFile("SampleProjFile.xml"));
+            var expectedProjFile = ConvertToXmlDoc(ReadResourceFile("ExpectedProjFile.xml"));
 
             var updatedXmlDoc = ConvertToXmlDoc(updatedXml);
 
-            Assert.That(updatedXmlDoc.OuterXml, Is.EqualTo(ExpectedProjFile.OuterXml));
+            Assert.That(updatedXmlDoc.OuterXml, Is.EqualTo(expectedProjFile.OuterXml));
         }
 
         [Test]
         public void ShouldThrowExceptionWhenXmlDocumentIsInvalid()
         {
-            Assert.Throws<XmlException>(() => _updater.UpdateProjectFileContents(InvalidProjFileXmlContent));
+            Assert.Throws<XmlException>(() => _updater.UpdateProjectFileContents(ReadResourceFile("InvalidXmlFile.xml")));
         }
 
         [Test]
