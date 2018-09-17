@@ -1,0 +1,14 @@
+[{
+    "docker-compose-service": "dotnettest",
+    "test-projects": [
+        "test/AutoUpgradeTests/AutoUpgradeTests.csproj"
+    ],
+    "appended-command-arguments": ["--", "-noresult"]
+},
+{
+    "docker-compose-service": "monotest",
+    "test-projects": [
+        "AutoUpgradeTests"
+    ],
+    "appended-command-arguments": ["-noresult"]
+}]
