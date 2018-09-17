@@ -17,7 +17,7 @@ namespace AutoUpgrade.Tests
         [Test]
         public void ShouldUpdateXmlContentAsExpected()
         {
-            var updatedXml = _updater.UpdateProjectFileContents(ReadResourceFile("SampleProjFile.xml"));
+            var updatedXml = _updater.UpdateProjectFileContents(ReadResourceFile("SampleProjectFile.xml"));
             var expectedProjFile = ConvertToXmlDoc(ReadResourceFile("ExpectedProjFile.xml"));
 
             var updatedXmlDoc = ConvertToXmlDoc(updatedXml);

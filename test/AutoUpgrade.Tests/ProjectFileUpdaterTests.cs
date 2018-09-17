@@ -27,7 +27,7 @@ namespace AutoUpgrade.Tests
         {
             var mockFileSystem = new MockFileSystem(new Dictionary<string, MockFileData>
             {
-                { $"C:{Slash}dev{Slash}SampleProjFile.xml", new MockFileData(ReadResourceFile("SampleProjFile.xml")) },
+                { $"C:{Slash}dev{Slash}SampleProjectFile.xml", new MockFileData(ReadResourceFile("SampleProjectFile.xml")) },
                 { $"C:{Slash}dev{Slash}InvalidXmlFile.xml", new MockFileData(ReadResourceFile("InvalidXmlFile.xml")) }
             });
 
@@ -35,7 +35,7 @@ namespace AutoUpgrade.Tests
 
             var projFiles = new List<FileInfo>
             {
-                new FileInfo($"C:{Slash}dev{Slash}SampleProjFile.xml")
+                new FileInfo($"C:{Slash}dev{Slash}SampleProjectFile.xml")
             };
 
             var expectedProjectFile = ConvertToXmlDoc(ReadResourceFile("ExpectedProjFile.xml"));
@@ -52,7 +52,7 @@ namespace AutoUpgrade.Tests
         {
             var mockFileSystem = new MockFileSystem(new Dictionary<string, MockFileData>
             {
-                { $"C:{Slash}dev{Slash}SampleProjFile.xml", new MockFileData(ReadResourceFile("SampleProjFile.xml")) },
+                { $"C:{Slash}dev{Slash}SampleProjectFile.xml", new MockFileData(ReadResourceFile("SampleProjectFile.xml")) },
                 { $"C:{Slash}dev{Slash}InvalidXmlFile.xml", new MockFileData(ReadResourceFile("InvalidXmlFile.xml")) }
             });
 
@@ -61,7 +61,7 @@ namespace AutoUpgrade.Tests
             var projFiles = new List<FileInfo>
             {
                 new FileInfo($"C:{Slash}dev{Slash}InvalidXmlFile.xml"),
-                new FileInfo($"C:{Slash}dev{Slash}sampleProjFile.xml")
+                new FileInfo($"C:{Slash}dev{Slash}SampleProjectFile.xml")
             };
 
             var expectedProjectFile = ConvertToXmlDoc(ReadResourceFile("ExpectedProjFile.xml"));
