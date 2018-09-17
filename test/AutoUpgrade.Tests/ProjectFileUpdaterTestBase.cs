@@ -5,7 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Xml;
 
-namespace AutoUpgradeTests
+namespace AutoUpgrade.Tests
 {
     public class ProjectFileUpdaterTestBase
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using AutoUpgrade.FileFinders;
 using NUnit.Framework;
 
-namespace AutoUpgradeTests.FileFinders
+namespace AutoUpgrade.Tests.FileFinders
 {
     public class ProjectFileFinderTests
     {

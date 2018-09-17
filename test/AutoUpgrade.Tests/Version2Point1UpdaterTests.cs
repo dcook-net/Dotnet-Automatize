@@ -2,7 +2,7 @@ using System.Xml;
 using AutoUpgrade.VersionUpdaters;
 using NUnit.Framework;
 
-namespace AutoUpgradeTests
+namespace AutoUpgrade.Tests
 {
     public class Version2Point1UpdaterTests : ProjectFileUpdaterTestBase
     {

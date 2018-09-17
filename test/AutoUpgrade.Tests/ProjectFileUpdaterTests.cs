@@ -2,12 +2,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.IO.Abstractions.TestingHelpers;
 using System.Linq;
-using AutoUpgrade;
 using AutoUpgrade.VersionUpdaters;
 using McMaster.Extensions.CommandLineUtils;
 using NUnit.Framework;
 
-namespace AutoUpgradeTests
+namespace AutoUpgrade.Tests
 {
     public class ProjectFileUpdaterTests : ProjectFileUpdaterTestBase
     {

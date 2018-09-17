@@ -4,7 +4,7 @@ using System.Linq;
 using AutoUpgrade.FileFinders;
 using NUnit.Framework;
 
-namespace AutoUpgradeTests.FileFinders
+namespace AutoUpgrade.Tests.FileFinders
 {
     public class DockerFileFinderTests
     {
@@ -13,16 +13,16 @@ namespace AutoUpgradeTests.FileFinders
         {
             var mockFileSystem = new MockFileSystem(new Dictionary<string, MockFileData>
             {
-                { @"C:\dev\solutionfolder\src\srcprojectfolder\DockerFile", new MockFileData("") },
-                { @"C:\dev\solutionfolder\tests\testprojectfolder\dockerfile", new MockFileData("") },
-                { @"C:\dev\solutionfolder\other\random\folder\dockerFile", new MockFileData("") },
-                { @"C:\dev\solutionfolder\other\random\goals\DOCKERFILE", new MockFileData("") },
-                { @"C:\dev\solutionfolder\other\random\test\DockerFile.test", new MockFileData("") }
+                { $"C:{Slash}dev{Slash}solutionfolder{Slash}src{Slash}srcprojectfolder{Slash}DockerFile", new MockFileData("") },
+                { $"C:{Slash}dev{Slash}solutionfolder{Slash}tests{Slash}testprojectfolder{Slash}dockerfile", new MockFileData("") },
+                { $"C:{Slash}dev{Slash}solutionfolder{Slash}other{Slash}random{Slash}folder{Slash}dockerFile", new MockFileData("") },
+                { $"C:{Slash}dev{Slash}solutionfolder{Slash}other{Slash}random{Slash}goals{Slash}DOCKERFILE", new MockFileData("") },
+                { $"C:{Slash}dev{Slash}solutionfolder{Slash}other{Slash}random{Slash}test{Slash}DockerFile.test", new MockFileData("") }
             });
 
             var fileFinder = new DockerFileFinder(mockFileSystem);
 
-            var results = fileFinder.Search(@"C:\dev\solutionfolder\").ToList();
+            var results = fileFinder.Search($"C:{Slash}dev{Slash}solutionfolder{Slash}").ToList();
 
             Assert.That(results.Count, Is.EqualTo(5));
             Assert.That(results.First().Name, Is.EqualTo("DockerFile"));
@@ -31,6 +31,8 @@ namespace AutoUpgradeTests.FileFinders
             Assert.That(results[3].Name, Is.EqualTo("DOCKERFILE"));
             Assert.That(results[4].Name, Is.EqualTo("DockerFile.test"));
         }
+
+        private static string Slash => OperatingSystem.IsWindows() ? @"\" : @"/";
 
         [Test]
         public void ShouldNotFindAnyDockerFiles()
