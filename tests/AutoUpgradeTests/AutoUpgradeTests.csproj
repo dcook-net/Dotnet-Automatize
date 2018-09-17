@@ -31,7 +31,7 @@
   </ItemGroup>
   
   <ItemGroup>
-    <ProjectReference Include="..\src\AutoUpgrader\AutoUpgrade.csproj" />
+    <ProjectReference Include="..\..\src\AutoUpgrade\AutoUpgrade.csproj" />
   </ItemGroup>
 
 </Project>
