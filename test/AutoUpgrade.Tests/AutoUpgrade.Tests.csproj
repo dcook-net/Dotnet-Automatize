@@ -14,6 +14,7 @@
     <EmbeddedResource Include="Resources\ProjectFiles\NetStandardXmlFile.xml" />
     <EmbeddedResource Include="Resources\ProjectFiles\ExpectedProjFile.xml" />
     <EmbeddedResource Include="Resources\ProjectFiles\InvalidXmlFile.xml" />
+    <EmbeddedResource Include="Resources\ProjectFiles\SampleProjectFile.xml" />
   </ItemGroup>
   
   <ItemGroup>
