@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "AutoUpgrader": {
+      "commandName": "Project",
+      "commandLineArgs": "Upgrade "
+    }
+  }
+}
