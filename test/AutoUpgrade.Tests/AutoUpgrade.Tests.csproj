@@ -6,11 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Resources\ProjectFiles\ExpectedNetStandardXmlFile.xml" />
-    <None Remove="Resources\ProjectFiles\NetStandardXmlFile.xml" />
-  </ItemGroup>
-
-  <ItemGroup>
     <EmbeddedResource Include="Resources\DockerFiles\ExpectedDockerFile" />
     <EmbeddedResource Include="Resources\DockerFiles\SampleDockerFile" />
     <EmbeddedResource Include="Resources\EnvFiles\Expected.env" />
