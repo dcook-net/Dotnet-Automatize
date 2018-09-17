@@ -1,0 +1,9 @@
+﻿FROM microsoft/aspnetcore:2.0.5
+
+COPY./src/EnquiryPresenter/bin/Release/netcoreapp2.0/publish/build
+
+WORKDIR /build
+
+EXPOSE 9000
+
+CMD["dotnet", "EnquiryPresenter.dll"]

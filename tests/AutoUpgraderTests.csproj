@@ -1,0 +1,37 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\ProjectFiles\ExpectedNetStandardXmlFile.xml" />
+    <None Remove="Resources\ProjectFiles\NetStandardXmlFile.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\DockerFiles\ExpectedDockerFile" />
+    <EmbeddedResource Include="Resources\DockerFiles\SampleDockerFile" />
+    <EmbeddedResource Include="Resources\EnvFiles\Expected.env" />
+    <EmbeddedResource Include="Resources\EnvFiles\Sample.env" />
+    <EmbeddedResource Include="Resources\ProjectFiles\ExpectedNetStandardXmlFile.xml" />
+    <EmbeddedResource Include="Resources\ProjectFiles\NetStandardXmlFile.xml" />
+    <EmbeddedResource Include="Resources\ProjectFiles\ExpectedProjFile.xml" />
+    <EmbeddedResource Include="Resources\ProjectFiles\InvalidXmlFile.xml" />
+    <EmbeddedResource Include="Resources\ProjectFiles\sampleProjFile.xml" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.8.0" />
+    <PackageReference Include="Moq" Version="4.10.0" />
+    <PackageReference Include="NUnit" Version="3.10.1" />
+    <PackageReference Include="NUnit3TestAdapter" Version="3.10.0" />
+    <PackageReference Include="System.IO.Abstractions.TestingHelpers" Version="2.1.0.230" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\src\AutoUpgrader\AutoUpgrader.csproj" />
+  </ItemGroup>
+
+</Project>
