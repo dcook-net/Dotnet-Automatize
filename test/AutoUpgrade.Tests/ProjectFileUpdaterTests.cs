@@ -5,6 +5,7 @@ using System.Linq;
 using AutoUpgrade.VersionUpdaters;
 using McMaster.Extensions.CommandLineUtils;
 using NUnit.Framework;
+using static AutoUpgrade.OS;
 
 namespace AutoUpgrade.Tests
 {
@@ -27,15 +28,15 @@ namespace AutoUpgrade.Tests
         {
             MockFileSystem = new MockFileSystem(new Dictionary<string, MockFileData>
             {
-                { @"C:\dev\sampleProjFile.xml", new MockFileData(SampleProjFileXmlContent) },
-                { @"C:\dev\InvalidXmlFile.xml", new MockFileData(InvalidProjFileXmlContent) }
+                { $"C:{Slash}dev{Slash}sampleProjFile.xml", new MockFileData(SampleProjFileXmlContent) },
+                { $"C:{Slash}dev{Slash}InvalidXmlFile.xml", new MockFileData(InvalidProjFileXmlContent) }
             });
 
             _updater = new FileUpdater(MockFileSystem, _console);
 
             var projFiles = new List<FileInfo>
             {
-                new FileInfo(@"C:\dev\sampleProjFile.xml")
+                new FileInfo($"C:{Slash}dev{Slash}sampleProjFile.xml")
             };
 
             _updater.UpdateProjectFiles(projFiles, _version2Point1Updater);
@@ -50,8 +51,8 @@ namespace AutoUpgrade.Tests
         {
             var projFiles = new List<FileInfo>
             {
-                new FileInfo(@"C:\dev\InvalidXmlFile.xml"),
-                new FileInfo(@"C:\dev\sampleProjFile.xml")
+                new FileInfo($"C:{Slash}dev{Slash}InvalidXmlFile.xml"),
+                new FileInfo($"C:{Slash}dev{Slash}sampleProjFile.xml")
             };
 
             _updater.UpdateProjectFiles(projFiles, _version2Point1Updater);
@@ -70,14 +71,14 @@ namespace AutoUpgrade.Tests
         {
             MockFileSystem = new MockFileSystem(new Dictionary<string, MockFileData>
             {
-                { @"C:\dev\NetStandardXmlFile.xml", new MockFileData(ReadResourceFile("NetStandardXmlFile.xml")) }
+                { $"C:{Slash}dev{Slash}NetStandardXmlFile.xml", new MockFileData(ReadResourceFile("NetStandardXmlFile.xml")) }
             });
 
             _updater = new FileUpdater(MockFileSystem, _console);
 
             var projFiles = new List<FileInfo>
             {
-                new FileInfo(@"C:\dev\NetStandardXmlFile.xml")
+                new FileInfo($"C:{Slash}dev{Slash}NetStandardXmlFile.xml")
             };
 
             _updater.UpdateProjectFiles(projFiles, _version2Point1Updater);

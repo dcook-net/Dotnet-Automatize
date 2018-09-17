@@ -3,6 +3,7 @@ using System.IO.Abstractions.TestingHelpers;
 using System.Linq;
 using AutoUpgrade.FileFinders;
 using NUnit.Framework;
+using static AutoUpgrade.OS;
 
 namespace AutoUpgrade.Tests.FileFinders
 {
@@ -13,14 +14,14 @@ namespace AutoUpgrade.Tests.FileFinders
         {
             var mockFileSystem = new MockFileSystem(new Dictionary<string, MockFileData>
             {
-                { @"C:\dev\solutionfolder\src\srcprojectfolder\srcproject.txt", new MockFileData("") },
-                { @"C:\dev\solutionfolder\tests\testprojectfolder\testproject.cs", new MockFileData("") },
-                { @"C:\dev\solutionfolder\other\random\folder\otherproj.vb", new MockFileData("") }
+                { $"C:{Slash}dev{Slash}solutionfolder{Slash}src{Slash}srcprojectfolder{Slash}srcproject.txt", new MockFileData("") },
+                { $"C:{Slash}dev{Slash}solutionfolder{Slash}tests{Slash}testprojectfolder{Slash}testproject.cs", new MockFileData("") },
+                { $"C:{Slash}dev{Slash}solutionfolder{Slash}other{Slash}random{Slash}folder{Slash}otherproj.vb", new MockFileData("") }
             });
 
             var fileFinder = new ProjectFileFinder(mockFileSystem);
 
-            var results = fileFinder.Search(@"C:\dev\solutionfolder\").ToList();
+            var results = fileFinder.Search($"C:{Slash}dev{Slash}solutionfolder{Slash}").ToList();
 
             Assert.That(results.Count, Is.EqualTo(0));
         }
@@ -30,14 +31,14 @@ namespace AutoUpgrade.Tests.FileFinders
         {
             var mockFileSystem = new MockFileSystem(new Dictionary<string, MockFileData>
             {
-                { @"C:\dev\solutionfolder\src\srcprojectfolder\srcproject.csproj", new MockFileData("") },
-                { @"C:\dev\solutionfolder\tests\testprojectfolder\testproject.csproj", new MockFileData("") },
-                { @"C:\dev\solutionfolder\other\random\folder\otherproj.csproj", new MockFileData("") }
+                { $"C:{Slash}dev{Slash}solutionfolder{Slash}src{Slash}srcprojectfolder{Slash}srcproject.csproj", new MockFileData("") },
+                { $"C:{Slash}dev{Slash}solutionfolder{Slash}tests{Slash}testprojectfolder{Slash}testproject.csproj", new MockFileData("") },
+                { $"C:{Slash}dev{Slash}solutionfolder{Slash}other{Slash}random{Slash}folder{Slash}otherproj.csproj", new MockFileData("") }
             });
 
             var fileFinder = new ProjectFileFinder(mockFileSystem);
 
-            var results = fileFinder.Search(@"C:\dev\solutionfolder\").ToList();
+            var results = fileFinder.Search($"C:{Slash}dev{Slash}solutionfolder{Slash}").ToList();
 
             Assert.That(results.Count, Is.EqualTo(3));
             Assert.That(results.First().Name, Is.EqualTo("srcproject.csproj"));
@@ -50,15 +51,15 @@ namespace AutoUpgrade.Tests.FileFinders
         {
             var mockFileSystem = new MockFileSystem(new Dictionary<string, MockFileData>
             {
-                { @"C:\dev\solutionfolder\src\srcprojectfolder\srcproject.csproj", new MockFileData("") },
-                { @"C:\dev\solutionfolder\tests\testprojectfolder\testproject.vbproj", new MockFileData("") },
-                { @"C:\dev\solutionfolder\other\random\folder\otherproj.fsproj", new MockFileData("") },
-                { @"C:\dev\solutionfolder\unknown\unknownproj.ukproj", new MockFileData("") }
+                { $"C:{Slash}dev{Slash}solutionfolder{Slash}src{Slash}srcprojectfolder{Slash}srcproject.csproj", new MockFileData("") },
+                { $"C:{Slash}dev{Slash}solutionfolder{Slash}tests{Slash}testprojectfolder{Slash}testproject.vbproj", new MockFileData("") },
+                { $"C:{Slash}dev{Slash}solutionfolder{Slash}other{Slash}random{Slash}folder{Slash}otherproj.fsproj", new MockFileData("") },
+                { $"C:{Slash}dev{Slash}solutionfolder{Slash}unknown{Slash}unknownproj.ukproj", new MockFileData("") }
             });
 
             var fileFinder = new ProjectFileFinder(mockFileSystem);
 
-            var results = fileFinder.Search(@"C:\dev\solutionfolder\").ToList();
+            var results = fileFinder.Search($"C:{Slash}dev{Slash}solutionfolder{Slash}").ToList();
 
             Assert.That(results.Count, Is.EqualTo(4));
             Assert.That(results.First().Name, Is.EqualTo("srcproject.csproj"));

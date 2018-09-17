@@ -4,6 +4,7 @@ using System.IO.Abstractions.TestingHelpers;
 using System.Linq;
 using System.Reflection;
 using System.Xml;
+using static  AutoUpgrade.OS;
 
 namespace AutoUpgrade.Tests
 {
@@ -21,8 +22,8 @@ namespace AutoUpgrade.Tests
 
             MockFileSystem = new MockFileSystem(new Dictionary<string, MockFileData>
             {
-                { @"C:\dev\sampleProjFile.xml", new MockFileData(SampleProjFileXmlContent) },
-                { @"C:\dev\InvalidXmlFile.xml", new MockFileData(InvalidProjFileXmlContent) }
+                { $"C:{Slash}dev{Slash}sampleProjFile.xml", new MockFileData(SampleProjFileXmlContent) },
+                { $"C:{Slash}dev{Slash}InvalidXmlFile.xml", new MockFileData(InvalidProjFileXmlContent) }
             });
         }
 

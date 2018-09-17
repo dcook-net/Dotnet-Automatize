@@ -3,6 +3,7 @@ using System.IO.Abstractions.TestingHelpers;
 using System.Linq;
 using AutoUpgrade.FileFinders;
 using NUnit.Framework;
+using static AutoUpgrade.OS;
 
 namespace AutoUpgrade.Tests.FileFinders
 {
@@ -13,15 +14,15 @@ namespace AutoUpgrade.Tests.FileFinders
         {
             var mockFileSystem = new MockFileSystem(new Dictionary<string, MockFileData>
             {
-                { @"C:\dev\solutionfolder\src\srcprojectfolder\.env", new MockFileData("") },
-                { @"C:\dev\solutionfolder\tests\testprojectfolder\.Env", new MockFileData("") },
-                { @"C:\dev\solutionfolder\other\random\folder\.ENV", new MockFileData("") },
-                { @"C:\dev\solutionfolder\other\random\test\test.env", new MockFileData("") }
+                { $"C:{Slash}dev{Slash}solutionfolder{Slash}src{Slash}srcprojectfolder{Slash}.env", new MockFileData("") },
+                { $"C:{Slash}dev{Slash}solutionfolder{Slash}tests{Slash}testprojectfolder{Slash}.Env", new MockFileData("") },
+                { $"C:{Slash}dev{Slash}solutionfolder{Slash}other{Slash}random{Slash}folder{Slash}.ENV", new MockFileData("") },
+                { $"C:{Slash}dev{Slash}solutionfolder{Slash}other{Slash}random{Slash}test{Slash}test.env", new MockFileData("") }
             });
 
             var fileFinder = new EnvironmentFileFinder(mockFileSystem);
 
-            var results = fileFinder.Search(@"C:\dev\solutionfolder\").ToList();
+            var results = fileFinder.Search($"C:{Slash}dev{Slash}solutionfolder{Slash}").ToList();
 
             Assert.That(results.Count, Is.EqualTo(4));
             Assert.That(results.First().Name, Is.EqualTo(".env"));
@@ -35,14 +36,14 @@ namespace AutoUpgrade.Tests.FileFinders
         {
             var mockFileSystem = new MockFileSystem(new Dictionary<string, MockFileData>
             {
-                { @"C:\dev\solutionfolder\src\srcprojectfolder\srcproject.txt", new MockFileData("") },
-                { @"C:\dev\solutionfolder\tests\testprojectfolder\testproject.cs", new MockFileData("") },
-                { @"C:\dev\solutionfolder\other\random\folder\otherproj.vb", new MockFileData("") }
+                { $"C:{Slash}dev{Slash}solutionfolder{Slash}src{Slash}srcprojectfolder{Slash}srcproject.txt", new MockFileData("") },
+                { $"C:{Slash}dev{Slash}solutionfolder{Slash}tests{Slash}testprojectfolder{Slash}testproject.cs", new MockFileData("") },
+                { $"C:{Slash}dev{Slash}solutionfolder{Slash}other{Slash}random{Slash}folder{Slash}otherproj.vb", new MockFileData("") }
             });
 
             var fileFinder = new EnvironmentFileFinder(mockFileSystem);
 
-            var results = fileFinder.Search(@"C:\dev\solutionfolder\").ToList();
+            var results = fileFinder.Search($"C:{Slash}dev{Slash}solutionfolder{Slash}").ToList();
 
             Assert.That(results.Count, Is.EqualTo(0));
         }
