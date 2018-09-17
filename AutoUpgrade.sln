@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2016
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoUpgradeTests", "tests\AutoUpgradeTests\AutoUpgradeTests.csproj", "{07612233-7AD4-4AA0-8D9A-A1E0A12D001C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoUpgrade.Tests", "test\AutoUpgrade.Tests\AutoUpgrade.Tests.csproj", "{07612233-7AD4-4AA0-8D9A-A1E0A12D001C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoUpgrade", "src\AutoUpgrade\AutoUpgrade.csproj", "{FB724EA3-BAAC-44E1-8E93-BFA1B7FA7B9D}"
 EndProject
