@@ -2,7 +2,7 @@
 using System.Reflection;
 using McMaster.Extensions.CommandLineUtils;
 
-namespace AutoUpgrader
+namespace AutoUpgrade
 {
     [Command(
         Name = "AutoUpgrader",

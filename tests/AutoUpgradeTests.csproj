@@ -29,9 +29,9 @@
     <PackageReference Include="NUnit3TestAdapter" Version="3.10.0" />
     <PackageReference Include="System.IO.Abstractions.TestingHelpers" Version="2.1.0.230" />
   </ItemGroup>
-
+  
   <ItemGroup>
-    <ProjectReference Include="..\src\AutoUpgrader\AutoUpgrader.csproj" />
+    <ProjectReference Include="..\src\AutoUpgrader\AutoUpgrade.csproj" />
   </ItemGroup>
 
 </Project>

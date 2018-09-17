@@ -2,7 +2,7 @@
 using System.Text;
 using System.Xml;
 
-namespace AutoUpgrader.VersionUpdaters
+namespace AutoUpgrade.VersionUpdaters
 {
     public static class XmlDocumentExtensions
     {

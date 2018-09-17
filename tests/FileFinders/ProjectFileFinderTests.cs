@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using System.IO.Abstractions.TestingHelpers;
 using System.Linq;
-using AutoUpgrader.FileFinders;
+using AutoUpgrade.FileFinders;
 using NUnit.Framework;
 
-namespace AutoUpgraderTests.FileFinders
+namespace AutoUpgradeTests.FileFinders
 {
     public class ProjectFileFinderTests
     {

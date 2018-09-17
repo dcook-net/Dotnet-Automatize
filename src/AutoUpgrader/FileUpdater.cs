@@ -4,10 +4,10 @@ using System.IO;
 using System.IO.Abstractions;
 using System.Linq;
 using System.Xml;
-using AutoUpgrader.VersionUpdaters;
+using AutoUpgrade.VersionUpdaters;
 using McMaster.Extensions.CommandLineUtils;
 
-namespace AutoUpgrader
+namespace AutoUpgrade
 {
     public class FileUpdater
     {

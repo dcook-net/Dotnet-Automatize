@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2016
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoUpgrader", "src\AutoUpgrader\AutoUpgrader.csproj", "{D8736A76-8BDB-4136-AB4D-A2BA504D60BE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoUpgrade", "src\AutoUpgrader\AutoUpgrade.csproj", "{D8736A76-8BDB-4136-AB4D-A2BA504D60BE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoUpgraderTests", "tests\AutoUpgraderTests.csproj", "{4D9F1FCE-40F1-4569-952C-2650F38B0F7A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoUpgradeTests", "tests\AutoUpgradeTests.csproj", "{4D9F1FCE-40F1-4569-952C-2650F38B0F7A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
