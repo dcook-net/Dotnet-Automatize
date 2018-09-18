@@ -5,7 +5,7 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <IsPackable>true</IsPackable>
     <PackAsTool>true</PackAsTool>
-    <ToolCommandName>AutoUpgrade</ToolCommandName>
+    <ToolCommandName>autoupgrade</ToolCommandName>
     <StartupObject>AutoUpgrade.Program</StartupObject>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
@@ -14,7 +14,6 @@
     <PackageReference Include="McMaster.Extensions.CommandLineUtils" Version="2.2.5" />
     <PackageReference Include="Microsoft.Extensions.CommandLineUtils" Version="1.1.1" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="2.1.1" />
-    <PackageReference Include="System.IO.Abstractions" Version="2.1.0.230" />
   </ItemGroup>
 
 </Project>

@@ -1,5 +1,5 @@
 ﻿using System.IO;
-using System.IO.Abstractions;
+//using System.IO.Abstractions;
 using System.Threading.Tasks;
 using AutoUpgrade.FileFinders;
 using AutoUpgrade.VersionUpdaters;
@@ -18,15 +18,15 @@ namespace AutoUpgrade
         [DirectoryExists]
         public string Path { get; private set; }
 
-        private readonly IFileSystem _fileSystem;
-
-        public UpgradeCommand() : this(null)
-        {}
-
-        public UpgradeCommand(IFileSystem fileSystem)
-        {
-            _fileSystem = fileSystem ?? new FileSystem();
-        }
+//        private readonly IFileSystem _fileSystem;
+//
+//        public UpgradeCommand() : this(null)
+//        {}
+//
+//        public UpgradeCommand(IFileSystem fileSystem)
+//        {
+//            _fileSystem = fileSystem ?? new FileSystem();
+//        }
 
         public async Task<int> OnExecute(CommandLineApplication app, IConsole console)
         {
@@ -35,7 +35,7 @@ namespace AutoUpgrade
                 Path = Directory.GetCurrentDirectory();
             }
 
-            if (!_fileSystem.Directory.Exists(Path))
+            if (!Directory.Exists(Path))
             {
                 console.WriteLine("Supplied Path does not exist. Aborting");
                 return await Task.FromResult(-1);
@@ -50,10 +50,10 @@ namespace AutoUpgrade
             //var directory = TargetFolder(settings.PathToSolution);
             console.WriteLine($"Starting updating of {Path}");
 
-            var projectFileFileFinder = new ProjectFileFinder(_fileSystem);
-            var dockerFileFinder = new DockerFileFinder(_fileSystem);
-            var environmentFileFinder = new EnvironmentFileFinder(_fileSystem);
-            var fileUpdater = new FileUpdater(_fileSystem, console);
+            var projectFileFileFinder = new ProjectFileFinder();
+            var dockerFileFinder = new DockerFileFinder();
+            var environmentFileFinder = new EnvironmentFileFinder();
+            var fileUpdater = new FileUpdater(console);
 
             var dockerFiles = dockerFileFinder.Search(Path);
             var projectFiles = projectFileFileFinder.Search(Path);

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.IO.Abstractions;
 using System.Linq;
 using System.Xml;
 using AutoUpgrade.VersionUpdaters;
@@ -11,12 +10,11 @@ namespace AutoUpgrade
 {
     public class FileUpdater
     {
-        private readonly IFileSystem _fileSystem;
+//        private readonly IFileSystem _fileSystem;
         private readonly IConsole _console;
 
-        public FileUpdater(IFileSystem fileSystem, IConsole console)
+        public FileUpdater(IConsole console)
         {
-            _fileSystem = fileSystem;
             _console = console;
         }
 
@@ -36,14 +34,14 @@ namespace AutoUpgrade
                 try
                 {
                     string xmlContent;
-                    using (var streamReader = _fileSystem.File.OpenText(fileInfo.FullName))
+                    using (var streamReader = File.OpenText(fileInfo.FullName))
                     {
                         xmlContent = streamReader.ReadToEnd();
                     }
 
                     var updatedXml = dotNetVersionUpdater.UpdateProjectFileContents(xmlContent);
 
-                    _fileSystem.File.WriteAllText(fileInfo.FullName, updatedXml);
+                    File.WriteAllText(fileInfo.FullName, updatedXml);
                 }
                 catch (XmlException e)
                 {
@@ -70,14 +68,14 @@ namespace AutoUpgrade
                 try
                 {
                     string content;
-                    using (var streamReader = _fileSystem.File.OpenText(fileInfo.FullName))
+                    using (var streamReader = File.OpenText(fileInfo.FullName))
                     {
                         content = streamReader.ReadToEnd();
                     }
 
                     var updatedContent = dotNetVersionUpdater.UpdateDockerFileContent(content);
 
-                    _fileSystem.File.WriteAllText(fileInfo.FullName, updatedContent);
+                    File.WriteAllText(fileInfo.FullName, updatedContent);
                 }
                 catch (Exception e)
                 {
@@ -100,14 +98,14 @@ namespace AutoUpgrade
                 try
                 {
                     string content;
-                    using (var streamReader = _fileSystem.File.OpenText(fileInfo.FullName))
+                    using (var streamReader = File.OpenText(fileInfo.FullName))
                     {
                         content = streamReader.ReadToEnd();
                     }
 
                     var updatedContent = dotNetVersionUpdater.UpdateEnvFileContent(content);
 
-                    _fileSystem.File.WriteAllText(fileInfo.FullName, updatedContent);
+                    File.WriteAllText(fileInfo.FullName, updatedContent);
                 }
                 catch (Exception e)
                 {
