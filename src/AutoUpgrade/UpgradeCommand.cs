@@ -14,7 +14,6 @@ namespace AutoUpgrade
     [HelpOption]
     public class UpgradeCommand
     {
-//        [Required(ErrorMessage = "You must specify the path to a directory to upgrade")]
         [Argument(0, Name = "path", Description = "Path to the directory to upgrade")]
         [DirectoryExists]
         public string Path { get; private set; }

@@ -5,9 +5,8 @@ using McMaster.Extensions.CommandLineUtils;
 namespace AutoUpgrade
 {
     [Command(
-        Name = "AutoUpgrader",
+        Name = "AutoUpgrade",
         FullName = "Automagically update your .NET projects to the specified version of .NetCore")]
-//    [VersionOptionFromMember(MemberName = nameof(GetVersion))]
     [Subcommand("Upgrade", typeof(UpgradeCommand))]
     public class Program
     {
