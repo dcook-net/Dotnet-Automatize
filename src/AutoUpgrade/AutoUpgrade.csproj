@@ -6,12 +6,15 @@
     <IsPackable>true</IsPackable>
     <PackAsTool>true</PackAsTool>
     <ToolCommandName>autoupgrade</ToolCommandName>
+    <AssemblyName>autoupgrade</AssemblyName>
     <StartupObject>AutoUpgrade.Program</StartupObject>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Description>A Tool for Automatically Upgrading MicroMachines microservices to the latest version of .NetCore</Description>
   </PropertyGroup>
   
   <ItemGroup>
     <PackageReference Include="McMaster.Extensions.CommandLineUtils" Version="2.2.4" />
+    <PackageReference Include="System.IO.Abstractions" Version="2.1.0.230" />
   </ItemGroup>
   
 </Project>

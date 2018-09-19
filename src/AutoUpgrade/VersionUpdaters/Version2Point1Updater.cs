@@ -14,7 +14,7 @@ namespace AutoUpgrade.VersionUpdaters
                 OmitXmlDeclaration = true,
                 Indent = true,
                 IndentChars = "  ",
-                NewLineChars = "\r\n",
+                NewLineChars = "\r\n", //TODO: this is ok for windows, what about nix base OS?
                 NewLineHandling = NewLineHandling.Replace
             };
             using (var writer = XmlWriter.Create(sb, settings))

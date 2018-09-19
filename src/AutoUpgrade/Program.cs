@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Reflection;
 using McMaster.Extensions.CommandLineUtils;
 
 namespace AutoUpgrade
@@ -38,10 +37,10 @@ namespace AutoUpgrade
             return 1;
         }
 
-        private static string GetVersion() => typeof(Program)
-            .Assembly
-            .GetCustomAttribute<AssemblyInformationalVersionAttribute>()
-            .InformationalVersion;
+//        private static string GetVersion() => typeof(Program)
+//            .Assembly
+//            .GetCustomAttribute<AssemblyInformationalVersionAttribute>()
+//            .InformationalVersion;
     }
 
 
