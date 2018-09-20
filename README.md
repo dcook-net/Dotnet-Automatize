@@ -4,7 +4,7 @@ AutoUpgrade is a .Net Global tool that will automatically update your Project Fi
 
 Because it's a .Net global tool, it works on Mac and Windows.
 
-## To iInstall:
+## To Install:
 
 ```
 dotnet tool install autoupgrade -g --add-source https://nuget.meer-spacestation.co.uk/nuget 
