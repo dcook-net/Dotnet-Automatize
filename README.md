@@ -17,7 +17,7 @@ you can leave out the --add-source option if you alread have the nuget server in
 As this is a global tool, you can run it from anywhere, supplying the full path the folder containing the solution you wish to upgrade:
 
 ```
-autoUpgrade upgrade [PathToDirectory]
+autoupgrade upgrade [PathToDirectory]
 ```
 
 Alternatively, is you navigate to the desired folder, you can omit the Path and it will default to your current location.
