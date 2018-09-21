@@ -53,7 +53,7 @@ namespace AutoUpgrade.VersionUpdaters
             //TODO: unit test this IF
             if (metaPackageNode != null)
             {
-                metaPackageNode.OuterXml = "<PackageReference Include=\"Microsoft.AspNetCore.App\" Version=\"2.1.4\" />";
+                metaPackageNode.OuterXml = "<PackageReference Include=\"Microsoft.AspNetCore.App\" />";
             }
 
             return xmlDoc.Format();

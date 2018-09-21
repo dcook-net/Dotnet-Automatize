@@ -23,10 +23,10 @@ namespace AutoUpgrade
                 Console.WriteLine(cpe.Message);
                 return -1;
             }
-            finally
-            {
-                Console.ReadLine();
-            }
+//            finally
+//            {
+                //Console.ReadLine();
+//            }
         }
 
         // ReSharper disable once UnusedMember.Global

@@ -18,8 +18,8 @@ namespace AutoUpgrade
         [DirectoryExists]
         public string Path { get; private set; }
 
-        [Argument(1, ShowInHelpText = true, Description = "bool flag indicating whether the DOTNET TEST command should run when Upgrage is complete. Defaults to false.", Name = "Test")]
-        public bool Test { get; set; } = false;
+//        [Argument(1, ShowInHelpText = true, Description = "bool flag indicating whether the DOTNET TEST command should run when Upgrage is complete. Defaults to false.", Name = "Test")]
+        private bool Test { get; set; } = false;
 
         private readonly IFileSystem _fileSystem;
 
@@ -64,11 +64,11 @@ namespace AutoUpgrade
             fileUpdater.UpdateDockerFiles(dockerFiles, dotNetVersionUpdater);
             fileUpdater.UpdateEnvironmentFiles(envFiles, dotNetVersionUpdater);
 
-            if (Test)
-            {
-                var dotnet = new DotNet();
-                dotnet.Test();
-            }
+//            if (Test)
+//            {
+//                var dotnet = new DotNet();
+//                dotnet.Test();
+//            }
 
             return await Task.FromResult(0);
         }
