@@ -1,6 +1,6 @@
 # Dotnet-AutoUpgrade
 
-AutoUpgrade is a .Net Global tool that will automatically update your Project File(s), DockerFile(s) and .env file(s) with the changes required for migrating to .Net 2.1.
+AutoUpgrade is a .Net Global tool that will automatically update your Project File(s), DockerFile(s) and .env file(s) with the changes required for migrating to .Net 2.1. (This currently only supports upgrades from 2.0)
 
 Because it's a .Net global tool, it works on Mac and Windows.
 
