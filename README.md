@@ -4,6 +4,10 @@ AutoUpgrade is a .Net Global tool that will automatically update your Project Fi
 
 Because it's a .Net global tool, it works on Mac and Windows.
 
+## Pre-reqs:
+You'll need .Net Core 2.1 SDK installed locally. Download at www.dot.net
+
+
 ## To Install:
 
 ```
