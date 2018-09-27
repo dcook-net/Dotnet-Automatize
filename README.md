@@ -28,6 +28,14 @@ autoupgrade upgrade [PathToDirectory]
 Alternatively, is you navigate to the desired folder, you can omit the Path and it will default to your current location.
 
 
+## Upgrading your version:
+
+To update to the latest version: 
+
+```
+dotnet tool update autoupgrade -g
+```
+
 ## Coming updates:
 
 Currently, AutoUpgrade only works with migration from 2.0 to 2.1, but the plan is to keep updating for each new version of .Net Core, (possibly even with preview releases). Updates will be applied incrementally, so upgrading from 2.0 to 2.2 AutoUpgrader will apply updates for 2.1, then 2.2, all with a single command.
