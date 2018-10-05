@@ -111,6 +111,6 @@ namespace AutoUpgrade.VersionUpdaters
 
         private string TargetFramework => $"netcoreapp{MajorVersion}.{MinorVersion}";
         private static string SdkImageVersion => "dotnet:2.1.402-sdk-alpine3.7";
-        private static string RuntimeImageVersion => "dotnet:2.1.4-aspnetcore-runtime-alpine3.7";
+        private static string RuntimeImageVersion => "dotnet:2.1.5-aspnetcore-runtime-alpine3.7";
     }
 }
