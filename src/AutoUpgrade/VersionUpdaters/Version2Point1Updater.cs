@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using System.Xml;
+using System.Xml.XPath;
+using AutoUpgrade.Extensions;
 
 namespace AutoUpgrade.VersionUpdaters
 {
@@ -42,12 +45,9 @@ namespace AutoUpgrade.VersionUpdaters
             var targetFrameWorkNode = xPathNavigator.SelectSingleNode("/Project/PropertyGroup/TargetFramework");
             var metaPackageNode = xPathNavigator.SelectSingleNode("/Project/ItemGroup/PackageReference[@Include=\"Microsoft.AspNetCore.All\"]");
 
-            if (targetFrameWorkNode != null)
+            if (targetFrameWorkNode != null && !targetFrameWorkNode.Value.Contains("netstandard"))
             {
-                if (!targetFrameWorkNode.Value.Contains("netstandard"))
-                {
-                    targetFrameWorkNode.SetValue(TargetFramework);
-                }
+                targetFrameWorkNode.SetValue(TargetFramework);
             }
 
             //TODO: unit test this IF
@@ -56,7 +56,44 @@ namespace AutoUpgrade.VersionUpdaters
                 metaPackageNode.OuterXml = "<PackageReference Include=\"Microsoft.AspNetCore.App\" />";
             }
 
+            if (PackagesNeedUpdating(xPathNavigator))
+            {
+                var packages = xPathNavigator.Select(@"/Project/ItemGroup/PackageReference[starts-with(@Include, ""MicroMachines.Common"")]");
+
+                var packageNames = new List<string>();
+
+                while (packages.MoveNext())
+                {
+                    packageNames.Add(packages.Current.GetAttribute("Include", ""));
+                }
+
+                foreach (var packageName in packageNames)
+                {
+                    var package = xPathNavigator.SelectSingleNode($"/Project/ItemGroup/PackageReference[@Include=\"{packageName}\"]");
+                    package.OuterXml = $"<PackageReference Include=\"{packageName}\" Version=\"{MinimumCommonLibVersion}\" />";
+                }
+            }
+
             return xmlDoc.Format();
+        }
+
+        private static bool PackagesNeedUpdating(XPathNavigator xPathNavigator)
+        {
+            var packages = xPathNavigator.Select(@"/Project/ItemGroup/PackageReference[starts-with(@Include, ""MicroMachines.Common"")]");
+            var packagesNeedUpdating = false;
+
+            while (packages.MoveNext())
+            {
+                var packageVersion = packages.Current.GetAttribute("Version", "");
+
+                if (packageVersion.ToSemanticVersion() < MinimumCommonLibVersion.ToSemanticVersion())
+                {
+                    packagesNeedUpdating = true;
+                    break;
+                }
+            }
+
+            return packagesNeedUpdating;
         }
 
         public string UpdateEnvFileContent(string envFileContents)
@@ -112,5 +149,6 @@ namespace AutoUpgrade.VersionUpdaters
         private string TargetFramework => $"netcoreapp{MajorVersion}.{MinorVersion}";
         private static string SdkImageVersion => "dotnet:2.1.402-sdk-alpine3.7";
         private static string RuntimeImageVersion => "dotnet:2.1.5-aspnetcore-runtime-alpine3.7";
+        private static string MinimumCommonLibVersion => "1.0.309";
     }
 }

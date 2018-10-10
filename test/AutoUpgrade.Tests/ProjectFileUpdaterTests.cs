@@ -100,25 +100,26 @@ namespace AutoUpgrade.Tests
             Assert.That(updatedXmlDoc, Is.EqualTo(expectedNetStandardProjFile));
         }
 
-        [Test, Ignore("Need to figure out how to test this")]//TODO:
-        public void ShouldLogWhenListOfFilesIsEmpty()
-        {
-            _updater.UpdateProjectFiles(new List<FileInfo>(), _version2Point1Updater);
-
-            AssertConsoleOutput();
-        }
-
-        [Test, Ignore("Need to figure out how to test this")]//TODO:
-        public void ShouldLogWhenListOfFilesIsNull()
-        {
-            _updater.UpdateProjectFiles(null, _version2Point1Updater);
-
-            AssertConsoleOutput();
-        }
-
-        private void AssertConsoleOutput()
-        {
-            Assert.That(_console.Out, Is.EqualTo("No Project files found!"));
-        }
+//        [Test, Ignore("Need to figure out how to test this")]//TODO:
+//        public void ShouldLogWhenListOfFilesIsEmpty()
+//        {
+//            _updater.UpdateProjectFiles(new List<FileInfo>(), _version2Point1Updater);
+//
+//            AssertConsoleOutput();
+//        }
+//
+//        [Test, Ignore("Need to figure out how to test this")]//TODO:
+//        public void ShouldLogWhenListOfFilesIsNull()
+//        {
+//            _updater = new FileUpdater(null, _console);
+//            _updater.UpdateProjectFiles(null, _version2Point1Updater);
+//
+//            AssertConsoleOutput();
+//        }
+//
+//        private void AssertConsoleOutput()
+//        {
+//            Assert.That(_console.Out, Is.EqualTo("No Project files found!"));
+//        }
     }
 }
