@@ -100,6 +100,29 @@ namespace AutoUpgrade.Tests
             Assert.That(updatedXmlDoc, Is.EqualTo(expectedNetStandardProjFile));
         }
 
+        [Test]
+        public void ShouldNotUpdateCommonLibraryVersionNumbersIfLowerThanMinium()
+        {
+            var mockFileSystem = new MockFileSystem(new Dictionary<string, MockFileData>
+            {
+                { $"C:{Slash}dev{Slash}SampleProjectFile-DontUpdateCommonLibVersions.xml", new MockFileData(ReadResourceFile("SampleProjectFile-DontUpdateCommonLibVersions.xml")) }
+            });
+
+            _updater = new FileUpdater(mockFileSystem, _console);
+
+            var projFiles = new List<FileInfo>
+            {
+                new FileInfo($"C:{Slash}dev{Slash}SampleProjectFile-DontUpdateCommonLibVersions.xml")
+            };
+
+            _updater.UpdateProjectFiles(projFiles, _version2Point1Updater);
+
+            var updatedXmlDoc = ConvertToXmlDoc(ReadFileFromFileSystem(projFiles[0], mockFileSystem));
+            var expectedProjFile = ConvertToXmlDoc(ReadResourceFile("ExpectedResult-DontUpdateCommonLibVersions.xml"));
+
+            Assert.That(updatedXmlDoc, Is.EqualTo(expectedProjFile));
+        }
+
 //        [Test, Ignore("Need to figure out how to test this")]//TODO:
 //        public void ShouldLogWhenListOfFilesIsEmpty()
 //        {

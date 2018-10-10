@@ -6,6 +6,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\ProjectFiles\ExpectedResult-DontUpdateCommonLibVersions.xml" />
+    <None Remove="Resources\ProjectFiles\SampleProjectFile-DontUpdateCommonLibVersions.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <EmbeddedResource Include="Resources\DockerFiles\ExpectedDockerFile" />
     <EmbeddedResource Include="Resources\DockerFiles\SampleDockerFile" />
     <EmbeddedResource Include="Resources\EnvFiles\Expected.env" />
@@ -14,6 +19,8 @@
     <EmbeddedResource Include="Resources\ProjectFiles\NetStandardXmlFile.xml" />
     <EmbeddedResource Include="Resources\ProjectFiles\ExpectedProjFile.xml" />
     <EmbeddedResource Include="Resources\ProjectFiles\InvalidXmlFile.xml" />
+    <EmbeddedResource Include="Resources\ProjectFiles\ExpectedResult-DontUpdateCommonLibVersions.xml" />
+    <EmbeddedResource Include="Resources\ProjectFiles\SampleProjectFile-DontUpdateCommonLibVersions.xml" />
     <EmbeddedResource Include="Resources\ProjectFiles\SampleProjectFile.xml" />
   </ItemGroup>
   
