@@ -18,7 +18,7 @@ namespace AutoUpgrade
         [DirectoryExists]
         public string Path { get; private set; }
 
-        [Argument(1, ShowInHelpText = true, Name = "BaseImage", Description = "The Base image to use 'Alpine' or 'Linux'")]
+        [Argument(1, ShowInHelpText = true, Name = "BaseImage", Description = "The Base image to use in your DockerFile. Valid options are 'Alpine' or 'Linux'")]
         public string BaseImage { get; private set; }
 
         private readonly IFileSystem _fileSystem;
