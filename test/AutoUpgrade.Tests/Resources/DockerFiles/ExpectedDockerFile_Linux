@@ -1,0 +1,9 @@
+﻿FROM microsoft/dotnet:2.1.5-aspnetcore-runtime
+
+COPY./src/EnquiryPresenter/bin/Release/netcoreapp2.1/publish/build
+
+WORKDIR /build
+
+EXPOSE 9000
+
+CMD["dotnet", "EnquiryPresenter.dll"]

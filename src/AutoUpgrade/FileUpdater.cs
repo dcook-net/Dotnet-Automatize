@@ -10,16 +10,19 @@ namespace AutoUpgrade
 {
     public class FileUpdater
     {
+        private readonly string _baseImage;
         private readonly IFileSystem _fileSystem;
         private readonly IConsole _console;
 
-        public FileUpdater(IConsole console) : this(null, console)
-        {}
+        public FileUpdater(IConsole console, string baseImage) : this(null, console, baseImage)
+        {
+        }
 
-        public FileUpdater(IFileSystem fileSystem, IConsole console)	
+        public FileUpdater(IFileSystem fileSystem, IConsole console, string baseImage = null)	
         {	
             _fileSystem = fileSystem ?? new FileSystem();
             _console = console;
+            _baseImage = baseImage ?? Program.DefaultBaseImage;
         }
 
         public void UpdateProjectFiles(IEnumerable<FileInfo> projectFiles, IDotNetVersionUpdater dotNetVersionUpdater)
@@ -37,7 +40,7 @@ namespace AutoUpgrade
             UpdateFiles(envFiles, dotNetVersionUpdater.UpdateEnvFileContent, "No .env files found!");
         }
 
-        private void UpdateFiles(IEnumerable<FileInfo> filesToUpdate, Func<string, string> updateMethod, string noFilesFoundMessage)
+        private void UpdateFiles(IEnumerable<FileInfo> filesToUpdate, Func<string, string, string> updateMethod, string noFilesFoundMessage)
         {
             if (filesToUpdate == null || !filesToUpdate.Any())
             {
@@ -56,7 +59,7 @@ namespace AutoUpgrade
                         content = streamReader.ReadToEnd();
                     }
 
-                    var updatedContent = updateMethod(content);
+                    var updatedContent = updateMethod(content, _baseImage);
 
                     File.WriteAllText(fileInfo.FullName, updatedContent);
                 }

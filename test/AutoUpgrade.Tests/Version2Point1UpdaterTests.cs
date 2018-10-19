@@ -31,24 +31,52 @@ namespace AutoUpgrade.Tests
             Assert.Throws<XmlException>(() => _updater.UpdateProjectFileContents(ReadResourceFile("InvalidXmlFile.xml")));
         }
 
-        [Test]
-        public void ShouldUpdateDockerFile()
+        [TestCase(null)]
+        [TestCase("")]
+        [TestCase("unknown")]
+        [TestCase(Program.DefaultBaseImage)]
+        public void ShouldUpdateDockerFile_Alpine(string baseImage)
         {
             var sampleDockerFileContent = ReadResourceFile("SampleDockerFile");
             var expectedDockerFile = ReadResourceFile("ExpectedDockerFile");
 
-            var updatedDockerFile = _updater.UpdateDockerFileContent(sampleDockerFileContent);
+            var updatedDockerFile = _updater.UpdateDockerFileContent(sampleDockerFileContent, baseImage);
 
             Assert.That(updatedDockerFile, Is.EqualTo(expectedDockerFile));
         }
 
         [Test]
-        public void ShouldUpdateEnvFile()
+        public void ShouldUpdateDockerFile_NotAlpine()
+        {
+            var sampleDockerFileContent = ReadResourceFile("SampleDockerFile");
+            var expectedDockerFile = ReadResourceFile("ExpectedDockerFile_Linux");
+
+            var updatedDockerFile = _updater.UpdateDockerFileContent(sampleDockerFileContent, "Linux");
+
+            Assert.That(updatedDockerFile, Is.EqualTo(expectedDockerFile));
+        }
+
+        [TestCase(null)]
+        [TestCase("")]
+        [TestCase("unknown")]
+        [TestCase(Program.DefaultBaseImage)]
+        public void ShouldUpdateEnvFile(string baseImage)
         {
             var sampleEnvFileContent = ReadResourceFile("Sample.env");
             var expectedEnvFile = ReadResourceFile("Expected.env");
 
             var updatedEnvFile = _updater.UpdateEnvFileContent(sampleEnvFileContent);
+
+            Assert.That(updatedEnvFile, Is.EqualTo(expectedEnvFile));
+        }
+
+        [Test]
+        public void ShouldUpdateEnvFile_NotAlpine()
+        {
+            var sampleEnvFileContent = ReadResourceFile("Sample.env");
+            var expectedEnvFile = ReadResourceFile("Expected_Linux.env");
+
+            var updatedEnvFile = _updater.UpdateEnvFileContent(sampleEnvFileContent, "Linux");
 
             Assert.That(updatedEnvFile, Is.EqualTo(expectedEnvFile));
         }

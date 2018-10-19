@@ -18,14 +18,13 @@ namespace AutoUpgrade
         [DirectoryExists]
         public string Path { get; private set; }
 
-//        [Argument(1, ShowInHelpText = true, Description = "bool flag indicating whether the DOTNET TEST command should run when Upgrage is complete. Defaults to false.", Name = "Test")]
-        private bool Test { get; set; } = false;
+        [Argument(1, ShowInHelpText = true, Name = "BaseImage", Description = "The Base image to use 'Alpine' or 'Linux'")]
+        public string BaseImage { get; private set; }
 
         private readonly IFileSystem _fileSystem;
 
         public UpgradeCommand() : this(null)
         {
-
         }
 
         public UpgradeCommand(IFileSystem fileSystem)
@@ -51,7 +50,7 @@ namespace AutoUpgrade
             var projectFileFileFinder = new ProjectFileFinder(_fileSystem);
             var dockerFileFinder = new DockerFileFinder(_fileSystem);
             var environmentFileFinder = new EnvironmentFileFinder(_fileSystem);
-            var fileUpdater = new FileUpdater(console);
+            var fileUpdater = new FileUpdater(console, BaseImage);
 
             var dockerFiles = dockerFileFinder.Search(Path);
             var projectFiles = projectFileFileFinder.Search(Path);
@@ -63,12 +62,6 @@ namespace AutoUpgrade
             fileUpdater.UpdateProjectFiles(projectFiles, dotNetVersionUpdater);
             fileUpdater.UpdateDockerFiles(dockerFiles, dotNetVersionUpdater);
             fileUpdater.UpdateEnvironmentFiles(envFiles, dotNetVersionUpdater);
-
-//            if (Test)
-//            {
-//                var dotnet = new DotNet();
-//                dotnet.Test();
-//            }
 
             return await Task.FromResult(0);
         }

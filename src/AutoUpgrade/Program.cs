@@ -9,6 +9,8 @@ namespace AutoUpgrade
     [Subcommand("Upgrade", typeof(UpgradeCommand))]
     public class Program
     {
+        public const string DefaultBaseImage = "Alpine";
+
         public static int Main(string[] args)
         {
             var app = new CommandLineApplication<Program> {ThrowOnUnexpectedArgument = false};
