@@ -17,16 +17,20 @@ dotnet tool install autoupgrade -g --add-source https://nuget.meer-spacestation.
 
 you can leave out the --add-source option if you alread have the nuget server in your nuget feed.
 
-## To Run:
+## Usage:
 
 As this is a global tool, you can run it from anywhere, supplying the full path the folder containing the solution you wish to upgrade:
 
 ```
-autoupgrade upgrade [PathToDirectory]
+autoupgrade upgrade [PathToDirectory] [BaseImage]
 ```
 
 Alternatively, is you navigate to the desired folder, you can omit the Path and it will default to your current location.
 
+## Params
+
+PathToDirectory - Path to the directory to upgrade. Defaults to current location, but you'll need to specify the path if you are specifying 'BaseImage' 
+BaseImage - The Base image to use in your DockerFile. Valid options are 'Alpine' or 'Linux'. Defaults to Alpine.
 
 ## Upgrading your version:
 
