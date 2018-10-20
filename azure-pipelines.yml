@@ -29,15 +29,15 @@ steps:
 #    projects: '**/*Tests/*.csproj'
 #    arguments: '--configuration $(buildConfiguration) --collect "Code coverage" --no-build --no-restore --list-tests'
 
-#- script: dotnet pack src\AutoUpgrade\ -p:PackageVersion=$(Major).$(Minor).$(Patch) --no-build --no-restore --configuration $(buildConfiguration)
+- script: dotnet pack src/AutoUpgrade/AutoUpgrade.csproj -p:PackageVersion=$(Major).$(Minor).$(Patch) --no-build --no-restore --configuration $(buildConfiguration)
 
-- task: NuGetCommand@2
-  inputs:
-    command: pack
-    packagesToPack: '**/*.csproj'
-    majorVersion: '$(Major)'
-    minorVersion: '$(Minor)'
-    patchVersion: '$(Patch)'
+#- task: NuGetCommand@2
+#  inputs:
+#    command: pack
+##    packagesToPack: '**/*.csproj'
+#    majorVersion: '$(Major)'
+#    minorVersion: '$(Minor)'
+#    patchVersion: '$(Patch)'
     
 #-script dotnet nuget push --source https://nuget.org/api/v2/
 
