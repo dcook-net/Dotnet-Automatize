@@ -4,7 +4,7 @@
 # https://docs.microsoft.com/azure/devops/pipelines/apps/windows/dot-net
 
 pool:
-  vmImage: 'VS2017-Win2016'
+  vmImage: 'vs2017-win2016' # other options: 'ubuntu-16.04', 'macOS-10.13', 'vs2017-win2016'
 
 variables:
   solution: '**/*.sln'
@@ -12,19 +12,17 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
-- task: NuGetToolInstaller@0
-
-- task: NuGetCommand@2
+- task: DotNetCoreInstaller@0
   inputs:
-    restoreSolution: '$(solution)'
+    version: '2.1.403' 
 
-- task: VSBuild@1
+- script: dotnet restore
+- script: dotnet build --configuration $(buildConfiguration) --no-restore --no-incremental
+# - script: dotnet test  '**/*Tests/*.csproj' --configuration $(buildConfiguration) --no-build --no-restore --list-tests
+    
+- task: DotNetCoreCLI@2
   inputs:
-    solution: '$(solution)'
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
-
-- task: VSTest@2
-  inputs:
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
+    command: test
+    projects: '**/*Tests/*.csproj'
+    arguments: '--configuration $(buildConfiguration) --collect "Code coverage"' --no-build --no-restore --list-tests
+    
