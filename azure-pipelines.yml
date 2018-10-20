@@ -4,12 +4,15 @@
 # https://docs.microsoft.com/azure/devops/pipelines/apps/windows/dot-net
 
 pool:
-  vmImage: 'vs2017-win2016' # other options: 'ubuntu-16.04', 'macOS-10.13', 'vs2017-win2016'
+  vmImage: 'ubuntu-16.04' # other options: 'ubuntu-16.04', 'macOS-10.13', 'vs2017-win2016'
 
 variables:
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
+  Major: 1
+  Minor: 0
+  Patch: 0
 
 steps:
 - task: DotNetCoreInstaller@0
@@ -25,4 +28,23 @@ steps:
 #    command: test
 #    projects: '**/*Tests/*.csproj'
 #    arguments: '--configuration $(buildConfiguration) --collect "Code coverage" --no-build --no-restore --list-tests'
+
+#- script: dotnet pack src\AutoUpgrade\ -p:PackageVersion=$(Major).$(Minor).$(Patch) --no-build --no-restore --configuration $(buildConfiguration)
+
+- task: NuGetCommand@2
+  inputs:
+    command: pack
+    packagesToPack: '**/*.csproj'
+    majorVersion: '$(Major)'
+    minorVersion: '$(Minor)'
+    patchVersion: '$(Patch)'
     
+#-script dotnet nuget push --source https://nuget.org/api/v2/
+
+#- task: NuGetCommand@2
+#  inputs:
+ #   command: push
+  #  nuGetFeedType: external
+   # publishFeedCredentials: '<Name of the NuGet service connection>'
+    #versioningScheme: byEnvVar
+    #versionEnvVar: Version
