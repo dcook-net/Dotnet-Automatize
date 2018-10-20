@@ -18,7 +18,7 @@ steps:
 
 - script: dotnet restore
 - script: dotnet build --configuration $(buildConfiguration) --no-restore --no-incremental
-- script: dotnet test  '**/*Tests/*.csproj' --configuration $(buildConfiguration) --no-build --no-restore --list-tests
+- script: dotnet test test\AutoUpgrade.Tests\ --configuration $(buildConfiguration) --no-build --no-restore --list-tests
     
 #- task: DotNetCoreCLI@2
 #  inputs:
