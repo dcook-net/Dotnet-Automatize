@@ -1,3 +1,5 @@
+[![Build Status](https://dev.azure.com/davidcook0284/davidcook/_apis/build/status/cookie1981.Dotnet-AutoUpgrade)](https://dev.azure.com/davidcook0284/davidcook/_build/latest?definitionId=1)
+
 # Dotnet-AutoUpgrade
 
 AutoUpgrade is a .Net Global tool that will automatically update your Project File(s), DockerFile(s) and .env file(s) with the changes required for migrating to .Net 2.1. (This currently only supports upgrades from 2.0)
