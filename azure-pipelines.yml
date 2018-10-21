@@ -13,7 +13,6 @@ variables:
   Major: 1
   Minor: 0
   Patch: 0
-  ApiKey: $(NugetAPIKey)
 
 steps:
 - task: DotNetCoreInstaller@0
@@ -41,7 +40,7 @@ steps:
 #    patchVersion: '$(Patch)' /home/vsts/work/1/s/src/AutoUpgrade/bin/Release/autoupgrade.1.0.0.nupkg'
 
 - script cd /home/vsts/work/1/s/src/AutoUpgrade/bin/Release/
-- script dotnet nuget push autoupgrade$(Major).$(Minor).$(Patch) --source https://nuget.org/api/v2/ --api-key $ApiKey 
+- script dotnet nuget push autoupgrade$(Major).$(Minor).$(Patch) --source https://nuget.org/api/v2/ --api-key $(NugetAPIKey) 
 
 #- task: NuGetCommand@2
 #  inputs:
