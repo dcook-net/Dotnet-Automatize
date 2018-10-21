@@ -23,6 +23,6 @@ steps:
 #    projects: '**/*Tests/*.csproj'
 #    arguments: '--configuration $(buildConfiguration) --collect "Code coverage" --no-build --no-restore --list-tests'
 
-- script: dotnet pack src/AutoUpgrade/AutoUpgrade.csproj -p:PackageVersion=$(Major).$(Minor).$(rev:.r) --no-build --no-restore --configuration $(buildConfiguration) --output $(Build.BinariesDirectory)
+- script: dotnet pack src/AutoUpgrade/AutoUpgrade.csproj -p:PackageVersion=$(Major).$(Minor).$(Rev:.r) --no-build --no-restore --configuration $(buildConfiguration) --output $(Build.BinariesDirectory)
 
-- script: dotnet nuget push $(Build.BinariesDirectory)/autoupgrade.$(Major).$(Minor).$(rev:.r).nupkg --source https://api.nuget.org/v3/index.json --api-key $(NugetAPIKey) 
+- script: dotnet nuget push $(Build.BinariesDirectory)/autoupgrade.$(Major).$(Minor).$(Rev:.r).nupkg --source https://api.nuget.org/v3/index.json --api-key $(NugetAPIKey) 
