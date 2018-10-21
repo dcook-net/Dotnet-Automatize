@@ -29,7 +29,7 @@ steps:
 #    projects: '**/*Tests/*.csproj'
 #    arguments: '--configuration $(buildConfiguration) --collect "Code coverage" --no-build --no-restore --list-tests'
 
-- script: dotnet pack src/AutoUpgrade/AutoUpgrade.csproj -p:PackageVersion=$(Major).$(Minor).$(Patch) --no-build --no-restore --configuration $(buildConfiguration)
+- script: dotnet pack src/AutoUpgrade/AutoUpgrade.csproj -p:PackageVersion=$(Major).$(Minor).$(Patch) --no-build --no-restore --configuration $(buildConfiguration) --output $(Build.BinariesDirectory)
 
 #- task: NuGetCommand@2
 #  inputs:
@@ -39,8 +39,7 @@ steps:
 #    minorVersion: '$(Minor)'
 #    patchVersion: '$(Patch)' /home/vsts/work/1/s/src/AutoUpgrade/bin/Release/autoupgrade.1.0.0.nupkg'
 
-- script cd /home/vsts/work/1/s/src/AutoUpgrade/bin/Release/
-- script dotnet nuget push autoupgrade$(Major).$(Minor).$(Patch) --source https://nuget.org/api/v2/ --api-key $(NugetAPIKey) 
+- script dotnet nuget push $(Build.BinariesDirectory)/autoupgrade$(Major).$(Minor).$(Patch) --source https://nuget.org/api/v2/ --api-key $(NugetAPIKey) 
 
 #- task: NuGetCommand@2
 #  inputs:
