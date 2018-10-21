@@ -31,4 +31,4 @@ steps:
 
 - script: dotnet pack src/AutoUpgrade/AutoUpgrade.csproj -p:PackageVersion=$(Major).$(Minor).$(Patch) --no-build --no-restore --configuration $(buildConfiguration) --output $(Build.BinariesDirectory)
 
-- script: dotnet nuget push $(Build.BinariesDirectory)/autoupgrade.$(Major).$(Minor).$(Patch).nupkg --source https://www.nuget.org/api/v2/package --api-key $(NugetAPIKey) 
+- script: dotnet nuget push $(Build.BinariesDirectory)/autoupgrade.$(Major).$(Minor).$(Patch).nupkg --source https://api.nuget.org/v3/index.json --api-key $(NugetAPIKey) 
