@@ -1,4 +1,4 @@
-[![Build Status](https://dev.azure.com/davidcook0284/davidcook/_apis/build/status/cookie1981.Dotnet-AutoUpgrade)](https://dev.azure.com/davidcook0284/davidcook/_build/latest?definitionId=1)
+[![Build Status](https://dev.azure.com/davidcook0284/davidcook/_apis/build/status/cookie1981.Dotnet-Automatize)](https://dev.azure.com/davidcook0284/davidcook/_build/latest?definitionId=1)
 
 # Dotnet-Automatize
 
