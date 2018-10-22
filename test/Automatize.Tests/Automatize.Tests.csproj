@@ -6,13 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Resources\DockerFiles\ExpectedDockerFile_Linux" />
-    <None Remove="Resources\EnvFiles\Expected_Linux.env" />
-    <None Remove="Resources\ProjectFiles\ExpectedResult-DontUpdateCommonLibVersions.xml" />
-    <None Remove="Resources\ProjectFiles\SampleProjectFile-DontUpdateCommonLibVersions.xml" />
-  </ItemGroup>
-
-  <ItemGroup>
     <EmbeddedResource Include="Resources\DockerFiles\ExpectedDockerFile" />
     <EmbeddedResource Include="Resources\DockerFiles\ExpectedDockerFile_Linux" />
     <EmbeddedResource Include="Resources\DockerFiles\SampleDockerFile" />
