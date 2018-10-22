@@ -9,8 +9,8 @@ namespace Automatize
 {
     [Command(
         Description = "Searches the specified directory and upgrades various files to the requested version of .Net",
-        Name = "dotnet autoupgrade",
-        FullName = "dotnet-autoupgrade")]
+        Name = "dotnet Automatize",
+        FullName = "dotnet-Automatize")]
     [HelpOption]
     public class UpgradeCommand
     {

@@ -1,8 +1,8 @@
 {
   "profiles": {
-    "AutoUpgrade": {
+    "Automatize": {
       "commandName": "Project",
-      "commandLineArgs": "Upgrade C:\\dev\\product.risk-capture\\  true"
+      "commandLineArgs": "Automatize C:\\dev\\test-solution\\  true"
     }
   }
 }

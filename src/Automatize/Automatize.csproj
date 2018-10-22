@@ -4,7 +4,7 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <IsPackable>true</IsPackable>
     <PackAsTool>true</PackAsTool>
-    <ToolCommandName>autoupgrade</ToolCommandName>
+    <ToolCommandName>Automatize</ToolCommandName>
     <AssemblyName>Automatize</AssemblyName>
     <StartupObject>Automatize.Program</StartupObject>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
