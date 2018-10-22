@@ -1,6 +1,6 @@
 ﻿using SemVersion;
 
-namespace AutoUpgrade.Extensions
+namespace Automatize.Extensions
 {
     public static class StringExtentions
     {

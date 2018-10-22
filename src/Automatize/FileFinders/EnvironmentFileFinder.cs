@@ -1,6 +1,6 @@
 using System.IO.Abstractions;
 
-namespace AutoUpgrade.FileFinders
+namespace Automatize.FileFinders
 {
     public class EnvironmentFileFinder : FileFinder
     {

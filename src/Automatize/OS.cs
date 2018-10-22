@@ -1,6 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 
-namespace AutoUpgrade
+namespace Automatize
 {
     public static class OS
     {

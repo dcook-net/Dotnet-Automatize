@@ -7,6 +7,7 @@ variables:
   buildConfiguration: 'Release'
   Major: 1
   Minor: 0
+  Patch: 0
 
 steps:
 - task: DotNetCoreInstaller@0
@@ -15,7 +16,7 @@ steps:
 
 - script: dotnet restore
 - script: dotnet build --configuration $(buildConfiguration) --no-restore --no-incremental
-- script: dotnet test test/AutoUpgrade.Tests/AutoUpgrade.Tests.csproj --configuration $(buildConfiguration) --no-build --no-restore --list-tests
+- script: dotnet test test/Automatize.Tests/Automatize.Tests.csproj --configuration $(buildConfiguration) --no-build --no-restore --list-tests
     
 #- task: DotNetCoreCLI@2
 #  inputs:
@@ -23,6 +24,12 @@ steps:
 #    projects: '**/*Tests/*.csproj'
 #    arguments: '--configuration $(buildConfiguration) --collect "Code coverage" --no-build --no-restore --list-tests'
 
-- script: dotnet pack src/AutoUpgrade/AutoUpgrade.csproj -p:PackageVersion=$(Major).$(Minor).$(Rev:.r) --no-build --no-restore --configuration $(buildConfiguration) --output $(Build.BinariesDirectory)
+- script: dotnet pack src/Automatize/Automatize.csproj -p:PackageVersion=$(Major).$(Minor).$(Patch) --no-build --no-restore --configuration $(buildConfiguration) --output $(Build.BinariesDirectory)
 
-- script: dotnet nuget push $(Build.BinariesDirectory)/autoupgrade.$(Major).$(Minor).$(Rev:.r).nupkg --source https://api.nuget.org/v3/index.json --api-key $(NugetAPIKey) 
+- script: dotnet nuget push $(Build.BinariesDirectory)/automatize.$(Major).$(Minor).$(Patch).nupkg --source https://api.nuget.org/v3/index.json --api-key $(NugetAPIKey) 
+
+# TODO:
+# Automate build number generation
+# Tags and Releases to Github!
+# Get all tests running in CI
+# nuget status/release version number.

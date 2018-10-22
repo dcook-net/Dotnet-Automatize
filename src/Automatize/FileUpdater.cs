@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using AutoUpgrade.VersionUpdaters;
-using McMaster.Extensions.CommandLineUtils;
 using System.IO.Abstractions;
+using System.Linq;
+using Automatize.VersionUpdaters;
+using McMaster.Extensions.CommandLineUtils;
 
-namespace AutoUpgrade
+namespace Automatize
 {
     public class FileUpdater
     {

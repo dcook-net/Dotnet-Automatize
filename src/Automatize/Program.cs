@@ -1,11 +1,11 @@
 ﻿using System;
 using McMaster.Extensions.CommandLineUtils;
 
-namespace AutoUpgrade
+namespace Automatize
 {
     [Command(
         Name = "Upgrade",
-        FullName = "Automagically update your .NET projects to the specified version of .NetCore")]
+        FullName = "Automatically update your .NET projects to the specified version of .NetCore")]
     [Subcommand("Upgrade", typeof(UpgradeCommand))]
     public class Program
     {

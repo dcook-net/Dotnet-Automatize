@@ -1,8 +1,8 @@
 using System.Xml;
-using AutoUpgrade.VersionUpdaters;
+using Automatize.VersionUpdaters;
 using NUnit.Framework;
 
-namespace AutoUpgrade.Tests
+namespace Automatize.Tests
 {
     public class Version2Point1UpdaterTests : ProjectFileUpdaterTestBase
     {

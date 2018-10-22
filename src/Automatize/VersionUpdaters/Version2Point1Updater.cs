@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using System.Xml;
 using System.Xml.XPath;
-using AutoUpgrade.Extensions;
+using Automatize.Extensions;
 
-namespace AutoUpgrade.VersionUpdaters
+namespace Automatize.VersionUpdaters
 {
     public static class XmlDocumentExtensions
     {

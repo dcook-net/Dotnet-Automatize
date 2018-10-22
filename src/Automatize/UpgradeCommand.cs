@@ -1,11 +1,11 @@
 ﻿using System.IO;
 using System.IO.Abstractions;
 using System.Threading.Tasks;
-using AutoUpgrade.FileFinders;
-using AutoUpgrade.VersionUpdaters;
+using Automatize.FileFinders;
+using Automatize.VersionUpdaters;
 using McMaster.Extensions.CommandLineUtils;
 
-namespace AutoUpgrade
+namespace Automatize
 {
     [Command(
         Description = "Searches the specified directory and upgrades various files to the requested version of .Net",

@@ -37,7 +37,7 @@
   </ItemGroup>
   
   <ItemGroup>
-    <ProjectReference Include="..\..\src\AutoUpgrade\AutoUpgrade.csproj" />
+    <ProjectReference Include="..\..\src\Automatize\Automatize.csproj" />
   </ItemGroup>
 
 </Project>

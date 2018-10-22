@@ -5,11 +5,12 @@
     <IsPackable>true</IsPackable>
     <PackAsTool>true</PackAsTool>
     <ToolCommandName>autoupgrade</ToolCommandName>
-    <AssemblyName>autoupgrade</AssemblyName>
-    <StartupObject>AutoUpgrade.Program</StartupObject>
+    <AssemblyName>Automatize</AssemblyName>
+    <StartupObject>Automatize.Program</StartupObject>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Description>A Tool for Automatically Upgrading MicroMachines microservices to the latest version of .NetCore</Description>
+    <Description>A Tool for Automatically Upgrading .Net Core Solutions to a new version</Description>
     <Authors>Dave Cook</Authors>
+    <PackageTags>Dotnet Core; Global Tool; Upgrade; Automation</PackageTags>
     <PackageProjectUrl>https://github.com/cookie1981/Dotnet-AutoUpgrade</PackageProjectUrl>
     <RepositoryUrl>https://github.com/cookie1981/Dotnet-AutoUpgrade</RepositoryUrl>
   </PropertyGroup>

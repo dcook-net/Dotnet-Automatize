@@ -2,12 +2,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.IO.Abstractions.TestingHelpers;
 using System.Linq;
-using AutoUpgrade.VersionUpdaters;
+using Automatize.VersionUpdaters;
 using McMaster.Extensions.CommandLineUtils;
 using NUnit.Framework;
-using static AutoUpgrade.OS;
 
-namespace AutoUpgrade.Tests
+namespace Automatize.Tests
 {
     public class ProjectFileUpdaterTests : ProjectFileUpdaterTestBase
     {
@@ -27,15 +26,15 @@ namespace AutoUpgrade.Tests
         {
             var mockFileSystem = new MockFileSystem(new Dictionary<string, MockFileData>
             {
-                { $"C:{Slash}dev{Slash}SampleProjectFile.xml", new MockFileData(ReadResourceFile("SampleProjectFile.xml")) },
-                { $"C:{Slash}dev{Slash}InvalidXmlFile.xml", new MockFileData(ReadResourceFile("InvalidXmlFile.xml")) }
+                { $"C:{OS.Slash}dev{OS.Slash}SampleProjectFile.xml", new MockFileData(ReadResourceFile("SampleProjectFile.xml")) },
+                { $"C:{OS.Slash}dev{OS.Slash}InvalidXmlFile.xml", new MockFileData(ReadResourceFile("InvalidXmlFile.xml")) }
             });
 
             _updater = new FileUpdater(mockFileSystem, _console);
 
             var projFiles = new List<FileInfo>
             {
-                new FileInfo($"C:{Slash}dev{Slash}SampleProjectFile.xml")
+                new FileInfo($"C:{OS.Slash}dev{OS.Slash}SampleProjectFile.xml")
             };
 
             var expectedProjectFile = ConvertToXmlDoc(ReadResourceFile("ExpectedProjFile.xml"));
@@ -52,16 +51,16 @@ namespace AutoUpgrade.Tests
         {
             var mockFileSystem = new MockFileSystem(new Dictionary<string, MockFileData>
             {
-                { $"C:{Slash}dev{Slash}SampleProjectFile.xml", new MockFileData(ReadResourceFile("SampleProjectFile.xml")) },
-                { $"C:{Slash}dev{Slash}InvalidXmlFile.xml", new MockFileData(ReadResourceFile("InvalidXmlFile.xml")) }
+                { $"C:{OS.Slash}dev{OS.Slash}SampleProjectFile.xml", new MockFileData(ReadResourceFile("SampleProjectFile.xml")) },
+                { $"C:{OS.Slash}dev{OS.Slash}InvalidXmlFile.xml", new MockFileData(ReadResourceFile("InvalidXmlFile.xml")) }
             });
 
             _updater = new FileUpdater(mockFileSystem, _console);
 
             var projFiles = new List<FileInfo>
             {
-                new FileInfo($"C:{Slash}dev{Slash}InvalidXmlFile.xml"),
-                new FileInfo($"C:{Slash}dev{Slash}SampleProjectFile.xml")
+                new FileInfo($"C:{OS.Slash}dev{OS.Slash}InvalidXmlFile.xml"),
+                new FileInfo($"C:{OS.Slash}dev{OS.Slash}SampleProjectFile.xml")
             };
 
             var expectedProjectFile = ConvertToXmlDoc(ReadResourceFile("ExpectedProjFile.xml"));
@@ -82,14 +81,14 @@ namespace AutoUpgrade.Tests
         {
             var mockFileSystem = new MockFileSystem(new Dictionary<string, MockFileData>
             {
-                { $"C:{Slash}dev{Slash}NetStandardXmlFile.xml", new MockFileData(ReadResourceFile("NetStandardXmlFile.xml")) }
+                { $"C:{OS.Slash}dev{OS.Slash}NetStandardXmlFile.xml", new MockFileData(ReadResourceFile("NetStandardXmlFile.xml")) }
             });
 
             _updater = new FileUpdater(mockFileSystem, _console);
 
             var projFiles = new List<FileInfo>
             {
-                new FileInfo($"C:{Slash}dev{Slash}NetStandardXmlFile.xml")
+                new FileInfo($"C:{OS.Slash}dev{OS.Slash}NetStandardXmlFile.xml")
             };
 
             _updater.UpdateProjectFiles(projFiles, _version2Point1Updater);
@@ -105,14 +104,14 @@ namespace AutoUpgrade.Tests
         {
             var mockFileSystem = new MockFileSystem(new Dictionary<string, MockFileData>
             {
-                { $"C:{Slash}dev{Slash}SampleProjectFile-DontUpdateCommonLibVersions.xml", new MockFileData(ReadResourceFile("SampleProjectFile-DontUpdateCommonLibVersions.xml")) }
+                { $"C:{OS.Slash}dev{OS.Slash}SampleProjectFile-DontUpdateCommonLibVersions.xml", new MockFileData(ReadResourceFile("SampleProjectFile-DontUpdateCommonLibVersions.xml")) }
             });
 
             _updater = new FileUpdater(mockFileSystem, _console);
 
             var projFiles = new List<FileInfo>
             {
-                new FileInfo($"C:{Slash}dev{Slash}SampleProjectFile-DontUpdateCommonLibVersions.xml")
+                new FileInfo($"C:{OS.Slash}dev{OS.Slash}SampleProjectFile-DontUpdateCommonLibVersions.xml")
             };
 
             _updater.UpdateProjectFiles(projFiles, _version2Point1Updater);

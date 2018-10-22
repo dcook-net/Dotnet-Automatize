@@ -3,7 +3,7 @@ using System.IO;
 using System.IO.Abstractions;
 using System.Linq;
 
-namespace AutoUpgrade.FileFinders
+namespace Automatize.FileFinders
 {
     public abstract class FileFinder
     {
