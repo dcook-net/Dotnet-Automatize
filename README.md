@@ -1,5 +1,5 @@
 [![Build Status](https://dev.azure.com/davidcook0284/davidcook/_apis/build/status/cookie1981.Dotnet-Automatize)](https://dev.azure.com/davidcook0284/davidcook/_build/latest?definitionId=1)
-[![nuget](https://img.shields.io/nuget/v/Automatize](https://www.nuget.org/packages/Automatize/)
+[![nuget](https://img.shields.io/nuget/v/Automatize)](https://www.nuget.org/packages/Automatize/)
 
 # Dotnet-Automatize
 
