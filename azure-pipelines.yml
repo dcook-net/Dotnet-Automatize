@@ -32,4 +32,3 @@ steps:
 # Automate build number generation
 # Tags and Releases to Github!
 # Get all tests running in CI
-# nuget status/release version number.
