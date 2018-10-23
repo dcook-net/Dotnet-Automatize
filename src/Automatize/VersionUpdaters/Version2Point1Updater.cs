@@ -43,12 +43,11 @@ namespace Automatize.VersionUpdaters
 
             var xPathNavigator = xmlDoc.CreateNavigator();
             var targetFrameWorkNode = xPathNavigator.SelectSingleNode("/Project/PropertyGroup/TargetFramework");
+            var targetFrameWorksNode = xPathNavigator.SelectSingleNode("/Project/PropertyGroup/TargetFrameworks");
             var metaPackageNode = xPathNavigator.SelectSingleNode("/Project/ItemGroup/PackageReference[@Include=\"Microsoft.AspNetCore.All\"]");
 
-            if (targetFrameWorkNode != null && !targetFrameWorkNode.Value.Contains("netstandard"))
-            {
-                targetFrameWorkNode.SetValue(TargetFramework);
-            }
+            UpdateTargetFramework(targetFrameWorkNode);
+            UpdateTargetFramework(targetFrameWorksNode);
 
             //TODO: unit test this IF
             if (metaPackageNode != null)
@@ -77,6 +76,14 @@ namespace Automatize.VersionUpdaters
             return xmlDoc.Format();
         }
 
+        private void UpdateTargetFramework(XPathNavigator targetFrameWorkNode)
+        {
+            if (targetFrameWorkNode != null && !targetFrameWorkNode.Value.Contains("netstandard"))
+            {
+                targetFrameWorkNode.SetValue(TargetFramework);
+            }
+        }
+
         private static bool PackagesNeedUpdating(XPathNavigator xPathNavigator)
         {
             var packages = xPathNavigator.Select(@"/Project/ItemGroup/PackageReference[starts-with(@Include, ""MicroMachines.Common"")]");
@@ -98,7 +105,20 @@ namespace Automatize.VersionUpdaters
 
         public string UpdateEnvFileContent(string envFileContents, string baseImage = null)
         {
-            return UpdateRuntimeImage(UpdateSdkImage(envFileContents, baseImage), baseImage);
+            var updatedEnvFile = UpdateSdkImage(envFileContents, baseImage);
+            updatedEnvFile = UpdateRuntimeImage(updatedEnvFile, baseImage);
+            updatedEnvFile = UpdateMonoVersion(updatedEnvFile);
+
+            return updatedEnvFile;
+        }
+
+        private string UpdateMonoVersion(string envFileContents)
+        {
+            const string startPosition = "MONO_IMAGE=mono:";
+            var stringToReplace = FindLineToReplace(envFileContents, startPosition);
+
+            return stringToReplace == null ? envFileContents : 
+                envFileContents.Replace(stringToReplace, $"{startPosition}{MonoVersion}");
         }
 
         public string UpdateDockerFileContent(string dockerFileContents, string baseImage = null)
@@ -183,5 +203,7 @@ namespace Automatize.VersionUpdaters
         private static string AlplineRuntimeImageVersion => "dotnet:2.1.5-aspnetcore-runtime-alpine3.7";
 
         private static string MinimumCommonLibVersion => "1.0.310";
+
+        private static string MonoVersion => "5.14.0.177";
     }
 }
