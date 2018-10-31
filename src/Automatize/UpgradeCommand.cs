@@ -18,14 +18,14 @@ namespace Automatize
         [DirectoryExists]
         public string Path { get; private set; }
 
-        [Argument(1, ShowInHelpText = true, Name = "BaseImage", Description = "The Base image to use in your DockerFile. Valid options are 'Alpine' or 'Linux'")]
-        public string BaseImage { get; private set; }
+        [Option(CommandOptionType.NoValue, ShowInHelpText = true, ShortName = "l", LongName = "useLinux",
+            Description = "The Base image to use in your DockerFile. Valid options are 'Alpine' or 'Linux'")]
+        public bool UseLinuxBaseImage { get; } = false;
 
         private readonly IFileSystem _fileSystem;
 
         public UpgradeCommand() : this(null)
-        {
-        }
+        {}
 
         public UpgradeCommand(IFileSystem fileSystem)
         {
@@ -50,7 +50,7 @@ namespace Automatize
             var projectFileFileFinder = new ProjectFileFinder(_fileSystem);
             var dockerFileFinder = new DockerFileFinder(_fileSystem);
             var environmentFileFinder = new EnvironmentFileFinder(_fileSystem);
-            var fileUpdater = new FileUpdater(console, BaseImage);
+            var fileUpdater = new FileUpdater(console, UseLinuxBaseImage);
 
             var dockerFiles = dockerFileFinder.Search(Path);
             var projectFiles = projectFileFileFinder.Search(Path);

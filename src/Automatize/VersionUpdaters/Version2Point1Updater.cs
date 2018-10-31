@@ -35,7 +35,7 @@ namespace Automatize.VersionUpdaters
         public int MajorVersion { get; } = 2;
         public int MinorVersion { get; } = 1;
 
-        public string UpdateProjectFileContents(string projectFileContents, string baseImage = null)
+        public string UpdateProjectFileContents(string projectFileContents, bool useLinuxBaseImage)
         {
             var xmlDoc = new XmlDocument();
             xmlDoc.LoadXml(projectFileContents);
@@ -47,7 +47,7 @@ namespace Automatize.VersionUpdaters
             var metaPackageNode = xPathNavigator.SelectSingleNode("/Project/ItemGroup/PackageReference[@Include=\"Microsoft.AspNetCore.All\"]");
 
             UpdateTargetFramework(targetFrameWorkNode);
-            UpdateTargetFramework(targetFrameWorksNode);
+            UpdateTargetFrameworks(targetFrameWorksNode);
 
             //TODO: unit test this IF
             if (metaPackageNode != null)
@@ -74,6 +74,11 @@ namespace Automatize.VersionUpdaters
             }
 
             return xmlDoc.Format();
+        }
+
+        private void UpdateTargetFrameworks(XPathNavigator targetFrameWorksNode)
+        {
+            targetFrameWorksNode?.SetValue(targetFrameWorksNode.Value.Replace("netcoreapp2.0", TargetFramework));
         }
 
         private void UpdateTargetFramework(XPathNavigator targetFrameWorkNode)
@@ -103,10 +108,10 @@ namespace Automatize.VersionUpdaters
             return packagesNeedUpdating;
         }
 
-        public string UpdateEnvFileContent(string envFileContents, string baseImage = null)
+        public string UpdateEnvFileContent(string envFileContents, bool useLinuxBaseImage)
         {
-            var updatedEnvFile = UpdateSdkImage(envFileContents, baseImage);
-            updatedEnvFile = UpdateRuntimeImage(updatedEnvFile, baseImage);
+            var updatedEnvFile = UpdateSdkImage(envFileContents, useLinuxBaseImage);
+            updatedEnvFile = UpdateRuntimeImage(updatedEnvFile, useLinuxBaseImage);
             updatedEnvFile = UpdateMonoVersion(updatedEnvFile);
 
             return updatedEnvFile;
@@ -121,27 +126,27 @@ namespace Automatize.VersionUpdaters
                 envFileContents.Replace(stringToReplace, $"{startPosition}{MonoVersion}");
         }
 
-        public string UpdateDockerFileContent(string dockerFileContents, string baseImage = null)
+        public string UpdateDockerFileContent(string dockerFileContents, bool useLinuxBaseImage)
         {
-            var updatedContent = UpdateFromStatement(dockerFileContents, baseImage);
+            var updatedContent = UpdateFromStatement(dockerFileContents, useLinuxBaseImage);
             return UpdateCopyStatement(updatedContent);
         }
 
-        private static string UpdateSdkImage(string envFileContents, string baseImage)
+        private static string UpdateSdkImage(string envFileContents, bool useLinuxBaseImage)
         {
             const string dotnetSdkImage = "DOTNET_SDK_IMAGE=microsoft/";
             var stringToReplace = FindLineToReplace(envFileContents, dotnetSdkImage);
-            var sdkBaseImageVersion = GetSdkImageVersion(baseImage);
+            var sdkBaseImageVersion = GetSdkImageVersion(useLinuxBaseImage);
 
             return stringToReplace == null ? envFileContents : envFileContents.Replace(stringToReplace, $"{dotnetSdkImage}{sdkBaseImageVersion}");
         }
 
         //TODO: Duplication in these methods! Plus tests
-        private static string UpdateRuntimeImage(string envFileContents, string baseImage)
+        private static string UpdateRuntimeImage(string envFileContents, bool useLinuxBaseImage)
         {
             const string dotnetRuntimeImage = "DOTNET_IMAGE=microsoft/";
             var stringToReplace = FindLineToReplace(envFileContents, dotnetRuntimeImage);
-            var runtimeImageVersion = GetRuntimeVersion(baseImage);
+            var runtimeImageVersion = GetRuntimeVersion(useLinuxBaseImage);
 
             return stringToReplace == null ? envFileContents : envFileContents.Replace(stringToReplace, $"{dotnetRuntimeImage}{runtimeImageVersion}");
         }
@@ -161,37 +166,25 @@ namespace Automatize.VersionUpdaters
             return dockerFileContents.Replace("netcoreapp2.0", TargetFramework); //TODO: I'd like the 2.0 part to be a bit smarter!
         }
 
-        private static string UpdateFromStatement(string dockerFileContents, string baseImage)
+        private static string UpdateFromStatement(string dockerFileContents, bool useLinuxBaseImage)
         {
             const string fromStatment = "FROM microsoft/";
 
             var stringToReplace = FindLineToReplace(dockerFileContents, fromStatment);
-            var baseImageVersion = GetRuntimeVersion(baseImage);
+            var baseImageVersion = GetRuntimeVersion(useLinuxBaseImage);
 
             //TODO: Unit test required
             return stringToReplace == null ? dockerFileContents : dockerFileContents.Replace(stringToReplace, $"{fromStatment}{baseImageVersion}");
         }
 
-        private static string GetSdkImageVersion(string baseImage)
+        private static string GetSdkImageVersion(bool useLinuxBaseImage)
         {
-            if (baseImage is null || string.IsNullOrWhiteSpace(baseImage))
-                return AlpineSdkImageVersion;
-
-            if (baseImage == "Linux")
-                return LinuxSdkImageVersion;
-
-            return AlpineSdkImageVersion;
+            return useLinuxBaseImage ? LinuxSdkImageVersion : AlpineSdkImageVersion;
         }
 
-        private static string GetRuntimeVersion(string baseImage)
+        private static string GetRuntimeVersion(bool useLinuxBaseImage)
         {
-            if (baseImage is null || string.IsNullOrWhiteSpace(baseImage))
-                return AlplineRuntimeImageVersion;
-
-            if (baseImage == "Linux")
-                return LinuxRuntimeImageVersion;
-
-            return AlplineRuntimeImageVersion;
+            return useLinuxBaseImage ? LinuxRuntimeImageVersion : AlplineRuntimeImageVersion;
         }
 
         private string TargetFramework => $"netcoreapp{MajorVersion}.{MinorVersion}";

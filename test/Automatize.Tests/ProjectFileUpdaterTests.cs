@@ -30,7 +30,7 @@ namespace Automatize.Tests
                 { $"C:{OS.Slash}dev{OS.Slash}InvalidXmlFile.xml", new MockFileData(ReadResourceFile("InvalidXmlFile.xml")) }
             });
 
-            _updater = new FileUpdater(mockFileSystem, _console);
+            _updater = new FileUpdater(mockFileSystem, _console, false);
 
             var projFiles = new List<FileInfo>
             {
@@ -55,7 +55,7 @@ namespace Automatize.Tests
                 { $"C:{OS.Slash}dev{OS.Slash}InvalidXmlFile.xml", new MockFileData(ReadResourceFile("InvalidXmlFile.xml")) }
             });
 
-            _updater = new FileUpdater(mockFileSystem, _console);
+            _updater = new FileUpdater(mockFileSystem, _console, false);
 
             var projFiles = new List<FileInfo>
             {
@@ -84,7 +84,7 @@ namespace Automatize.Tests
                 { $"C:{OS.Slash}dev{OS.Slash}NetStandardXmlFile.xml", new MockFileData(ReadResourceFile("NetStandardXmlFile.xml")) }
             });
 
-            _updater = new FileUpdater(mockFileSystem, _console);
+            _updater = new FileUpdater(mockFileSystem, _console, false);
 
             var projFiles = new List<FileInfo>
             {
@@ -107,7 +107,7 @@ namespace Automatize.Tests
                 { $"C:{OS.Slash}dev{OS.Slash}SampleProjectFile-DontUpdateCommonLibVersions.xml", new MockFileData(ReadResourceFile("SampleProjectFile-DontUpdateCommonLibVersions.xml")) }
             });
 
-            _updater = new FileUpdater(mockFileSystem, _console);
+            _updater = new FileUpdater(mockFileSystem, _console, false);
 
             var projFiles = new List<FileInfo>
             {

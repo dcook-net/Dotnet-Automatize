@@ -2,7 +2,7 @@
   "profiles": {
     "Automatize": {
       "commandName": "Project",
-      "commandLineArgs": "Automatize C:\\dev\\test-solution\\  true"
+      "commandLineArgs": "Upgrade C:\\dev\\test-solution\\  true"
     }
   }
 }

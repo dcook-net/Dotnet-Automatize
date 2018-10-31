@@ -10,19 +10,19 @@ namespace Automatize
 {
     public class FileUpdater
     {
-        private readonly string _baseImage;
+        private readonly bool _useLinuxBaseImage;
         private readonly IFileSystem _fileSystem;
         private readonly IConsole _console;
 
-        public FileUpdater(IConsole console, string baseImage) : this(null, console, baseImage)
+        public FileUpdater(IConsole console, bool useLinuxBaseImage) : this(null, console, useLinuxBaseImage)
         {
         }
 
-        public FileUpdater(IFileSystem fileSystem, IConsole console, string baseImage = null)	
+        public FileUpdater(IFileSystem fileSystem, IConsole console, bool useLinuxBaseImage)	
         {	
             _fileSystem = fileSystem ?? new FileSystem();
             _console = console;
-            _baseImage = baseImage ?? Program.DefaultBaseImage;
+            _useLinuxBaseImage = useLinuxBaseImage;// ?? Program.DefaultBaseImage;
         }
 
         public void UpdateProjectFiles(IEnumerable<FileInfo> projectFiles, IDotNetVersionUpdater dotNetVersionUpdater)
@@ -40,7 +40,7 @@ namespace Automatize
             UpdateFiles(envFiles, dotNetVersionUpdater.UpdateEnvFileContent, "No .env files found!");
         }
 
-        private void UpdateFiles(IEnumerable<FileInfo> filesToUpdate, Func<string, string, string> updateMethod, string noFilesFoundMessage)
+        private void UpdateFiles(IEnumerable<FileInfo> filesToUpdate, Func<string, bool, string> updateMethod, string noFilesFoundMessage)
         {
             if (filesToUpdate == null || !filesToUpdate.Any())
             {
@@ -59,7 +59,7 @@ namespace Automatize
                         content = streamReader.ReadToEnd();
                     }
 
-                    var updatedContent = updateMethod(content, _baseImage);
+                    var updatedContent = updateMethod(content, _useLinuxBaseImage);
 
                     File.WriteAllText(fileInfo.FullName, updatedContent);
                 }

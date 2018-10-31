@@ -5,10 +5,10 @@
         int MajorVersion { get; }
         int MinorVersion { get; }
 
-        string UpdateProjectFileContents(string projectFileContents, string baseImage);
+        string UpdateProjectFileContents(string projectFileContents, bool useLinuxBaseImage);
 
-        string UpdateEnvFileContent(string envFileContents, string baseImage);
+        string UpdateEnvFileContent(string envFileContents, bool useLinuxBaseImage);
 
-        string UpdateDockerFileContent(string dockerFileContents, string baseImage);
+        string UpdateDockerFileContent(string dockerFileContents, bool useLinuxBaseImage);
     }
 }

@@ -15,7 +15,7 @@ You'll need .Net Core 2.1 SDK installed locally. Download at www.dot.net
 ## To Install:
 
 ```
-dotnet tool install automatize -g --version 1.0.2
+dotnet tool install automatize -g --version 1.0.3
 ```
 
 ## Usage:
@@ -23,7 +23,7 @@ dotnet tool install automatize -g --version 1.0.2
 As this is a global tool, you can run it from anywhere, supplying the full path the folder containing the solution you wish to upgrade:
 
 ```
-automatize upgrade [PathToDirectory] [BaseImage]
+automatize upgrade [PathToDirectory]
 ```
 
 Alternatively, if you navigate to the desired folder, you can omit the Path and it will default to your current location.
@@ -31,7 +31,7 @@ Alternatively, if you navigate to the desired folder, you can omit the Path and 
 ## Params
 
 PathToDirectory - Fully qualified Path to the directory you wish to upgrade. Defaults to current location, but you'll need to specify the path if you are specifying 'BaseImage' 
-BaseImage - The Base image to use in your DockerFile. Valid options are 'Alpine' or 'Linux'. Defaults to Alpine.
+--useLinux - By Default the Base image to use in your DockerFile is assumed to be Alpine. If you would rather use a Linux base image include the --useLinux switch, or -l 
 
 ## Upgrading your version:
 

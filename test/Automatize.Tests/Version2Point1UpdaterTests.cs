@@ -17,8 +17,19 @@ namespace Automatize.Tests
         [Test]
         public void ShouldUpdateXmlContentAsExpected()
         {
-            var updatedXml = _updater.UpdateProjectFileContents(ReadResourceFile("SampleProjectFile.xml"));
+            var updatedXml = _updater.UpdateProjectFileContents(ReadResourceFile("SampleProjectFile.xml"), false);
             var expectedProjFile = ConvertToXmlDoc(ReadResourceFile("ExpectedProjFile.xml"));
+
+            var updatedXmlDoc = ConvertToXmlDoc(updatedXml);
+
+            Assert.That(updatedXmlDoc.OuterXml, Is.EqualTo(expectedProjFile.OuterXml));
+        }
+
+        [Test]
+        public void ShouldUpdateLibraryProjectFile_HandlingTargetFrameworksNode()
+        {
+            var updatedXml = _updater.UpdateProjectFileContents(ReadResourceFile("LibProjectFile.xml"), false);
+            var expectedProjFile = ConvertToXmlDoc(ReadResourceFile("ExpectedLibProjFile.xml"));
 
             var updatedXmlDoc = ConvertToXmlDoc(updatedXml);
 
@@ -28,55 +39,49 @@ namespace Automatize.Tests
         [Test]
         public void ShouldThrowExceptionWhenXmlDocumentIsInvalid()
         {
-            Assert.Throws<XmlException>(() => _updater.UpdateProjectFileContents(ReadResourceFile("InvalidXmlFile.xml")));
+            Assert.Throws<XmlException>(() => _updater.UpdateProjectFileContents(ReadResourceFile("InvalidXmlFile.xml"), false));
         }
 
-        [TestCase(null)]
-        [TestCase("")]
-        [TestCase("unknown")]
-        [TestCase(Program.DefaultBaseImage)]
-        public void ShouldUpdateDockerFile_Alpine(string baseImage)
+        [Test]
+        public void ShouldUpdateDockerFile_AlpineBaseImage()
         {
             var sampleDockerFileContent = ReadResourceFile("SampleDockerFile");
             var expectedDockerFile = ReadResourceFile("ExpectedDockerFile");
 
-            var updatedDockerFile = _updater.UpdateDockerFileContent(sampleDockerFileContent, baseImage);
+            var updatedDockerFile = _updater.UpdateDockerFileContent(sampleDockerFileContent, false);
 
             Assert.That(updatedDockerFile, Is.EqualTo(expectedDockerFile));
         }
 
         [Test]
-        public void ShouldUpdateDockerFile_NotAlpine()
+        public void ShouldUpdateDockerFile_LinuxBaseImage()
         {
             var sampleDockerFileContent = ReadResourceFile("SampleDockerFile");
             var expectedDockerFile = ReadResourceFile("ExpectedDockerFile_Linux");
 
-            var updatedDockerFile = _updater.UpdateDockerFileContent(sampleDockerFileContent, "Linux");
+            var updatedDockerFile = _updater.UpdateDockerFileContent(sampleDockerFileContent, true);
 
             Assert.That(updatedDockerFile, Is.EqualTo(expectedDockerFile));
         }
 
-        [TestCase(null)]
-        [TestCase("")]
-        [TestCase("unknown")]
-        [TestCase(Program.DefaultBaseImage)]
-        public void ShouldUpdateEnvFile(string baseImage)
+        [Test]
+        public void ShouldUpdateEnvFile_AlpineBaseImage()
         {
             var sampleEnvFileContent = ReadResourceFile("Sample.env");
             var expectedEnvFile = ReadResourceFile("Expected.env");
 
-            var updatedEnvFile = _updater.UpdateEnvFileContent(sampleEnvFileContent);
+            var updatedEnvFile = _updater.UpdateEnvFileContent(sampleEnvFileContent, false);
 
             Assert.That(updatedEnvFile, Is.EqualTo(expectedEnvFile));
         }
 
         [Test]
-        public void ShouldUpdateEnvFile_NotAlpine()
+        public void ShouldUpdateEnvFile_LinuxBaseImage()
         {
             var sampleEnvFileContent = ReadResourceFile("Sample.env");
             var expectedEnvFile = ReadResourceFile("Expected_Linux.env");
 
-            var updatedEnvFile = _updater.UpdateEnvFileContent(sampleEnvFileContent, "Linux");
+            var updatedEnvFile = _updater.UpdateEnvFileContent(sampleEnvFileContent, true);
 
             Assert.That(updatedEnvFile, Is.EqualTo(expectedEnvFile));
         }
