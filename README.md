@@ -1,4 +1,5 @@
 [![Build Status](https://dev.azure.com/davidcook0284/davidcook/_apis/build/status/cookie1981.Dotnet-Automatize)](https://dev.azure.com/davidcook0284/davidcook/_build/latest?definitionId=1)
+[![nuget](https://img.shields.io/nuget/v/Automatize.svg)](https://www.nuget.org/packages/Automatize/)
 
 # Dotnet-Automatize
 
@@ -35,7 +36,7 @@ You'll need .Net Core 2.1 SDK installed locally. Download at www.dot.net
 ## To Install:
 
 ```
-dotnet tool install automatize -g --version 1.0.4
+dotnet tool install automatize -g --version 1.0.5
 ```
 
 ## Usage:
