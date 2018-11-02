@@ -7,7 +7,7 @@ variables:
   buildConfiguration: 'Release'
   Major: 1
   Minor: 0
-  Patch: 3
+  Patch: 4
 
 steps:
 - task: DotNetCoreInstaller@0
@@ -17,15 +17,7 @@ steps:
 - script: dotnet restore
 - script: dotnet build --configuration $(buildConfiguration) --no-restore --no-incremental
 - script: dotnet test test/Automatize.Tests/Automatize.Tests.csproj --configuration $(buildConfiguration) --no-build --no-restore --list-tests
-    
-#- task: DotNetCoreCLI@2
-#  inputs:
-#    command: test
-#    projects: '**/*Tests/*.csproj'
-#    arguments: '--configuration $(buildConfiguration) --collect "Code coverage" --no-build --no-restore --list-tests'
-
 - script: dotnet pack src/Automatize/Automatize.csproj -p:PackageVersion=$(Major).$(Minor).$(Patch) --no-build --no-restore --configuration $(buildConfiguration) --output $(Build.BinariesDirectory)
-
 - script: dotnet nuget push $(Build.BinariesDirectory)/automatize.$(Major).$(Minor).$(Patch).nupkg --source https://api.nuget.org/v3/index.json --api-key $(NugetAPIKey) 
 
 # TODO:
