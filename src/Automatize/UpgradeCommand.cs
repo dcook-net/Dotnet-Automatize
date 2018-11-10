@@ -2,7 +2,7 @@
 using System.IO.Abstractions;
 using System.Threading.Tasks;
 using Automatize.FileFinders;
-using Automatize.VersionUpdaters;
+using Automatize.VersionUpdater;
 using McMaster.Extensions.CommandLineUtils;
 
 namespace Automatize
@@ -50,18 +50,18 @@ namespace Automatize
             var projectFileFileFinder = new ProjectFileFinder(_fileSystem);
             var dockerFileFinder = new DockerFileFinder(_fileSystem);
             var environmentFileFinder = new EnvironmentFileFinder(_fileSystem);
-            var fileUpdater = new FileUpdater(console, UseLinuxBaseImage);
-
-            var dockerFiles = dockerFileFinder.Search(Path);
-            var projectFiles = projectFileFileFinder.Search(Path);
-            var envFiles = environmentFileFinder.Search(Path);
 
             //TODO: inject the version updater based on the version the user wants
             var dotNetVersionUpdater = new Version2Point1Updater();
 
-            fileUpdater.UpdateProjectFiles(projectFiles, dotNetVersionUpdater);
-            fileUpdater.UpdateDockerFiles(dockerFiles, dotNetVersionUpdater);
-            fileUpdater.UpdateEnvironmentFiles(envFiles, dotNetVersionUpdater);
+            var versionUpdater = new VersionUpdater.VersionUpdater(dotNetVersionUpdater,
+                                                    _fileSystem, 
+                                                    console, 
+                                                    projectFileFileFinder, 
+                                                    dockerFileFinder, 
+                                                    environmentFileFinder);
+
+            versionUpdater.UpgradeToVersion(Path, UseLinuxBaseImage);
 
             return await Task.FromResult(0);
         }

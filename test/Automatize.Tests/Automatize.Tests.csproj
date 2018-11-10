@@ -6,21 +6,21 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Resources\DockerFiles\ExpectedDockerFile" />
-    <EmbeddedResource Include="Resources\DockerFiles\ExpectedDockerFile_Linux" />
-    <EmbeddedResource Include="Resources\DockerFiles\SampleDockerFile" />
+    <EmbeddedResource Include="Resources\DockerFiles\DockerFile_Expected" />
+    <EmbeddedResource Include="Resources\DockerFiles\DockerFile_Linux_Expected" />
+    <EmbeddedResource Include="Resources\DockerFiles\DockerFile_Sample" />
     <EmbeddedResource Include="Resources\EnvFiles\Expected_Linux.env" />
     <EmbeddedResource Include="Resources\EnvFiles\Expected.env" />
     <EmbeddedResource Include="Resources\EnvFiles\Sample.env" />
-    <EmbeddedResource Include="Resources\ProjectFiles\ExpectedNetStandardXmlFile.xml" />
-    <EmbeddedResource Include="Resources\ProjectFiles\ExpectedLibProjFile.xml" />
-    <EmbeddedResource Include="Resources\ProjectFiles\NetStandardXmlFile.xml" />
-    <EmbeddedResource Include="Resources\ProjectFiles\ExpectedProjFile.xml" />
-    <EmbeddedResource Include="Resources\ProjectFiles\InvalidXmlFile.xml" />
-    <EmbeddedResource Include="Resources\ProjectFiles\ExpectedResult-DontUpdateCommonLibVersions.xml" />
-    <EmbeddedResource Include="Resources\ProjectFiles\LibProjectFile.xml" />
-    <EmbeddedResource Include="Resources\ProjectFiles\SampleProjectFile-DontUpdateCommonLibVersions.xml" />
-    <EmbeddedResource Include="Resources\ProjectFiles\SampleProjectFile.xml" />
+    <EmbeddedResource Include="Resources\ProjectFiles\ExpectedNetStandardXmlFile.csproj" />
+    <EmbeddedResource Include="Resources\ProjectFiles\ExpectedLibProjFile.csproj" />
+    <EmbeddedResource Include="Resources\ProjectFiles\NetStandardXmlFile.csproj" />
+    <EmbeddedResource Include="Resources\ProjectFiles\ExpectedProjFile.csproj" />
+    <EmbeddedResource Include="Resources\ProjectFiles\InvalidXmlFile.csproj" />
+    <EmbeddedResource Include="Resources\ProjectFiles\ExpectedResult-DontUpdateCommonLibVersions.csproj" />
+    <EmbeddedResource Include="Resources\ProjectFiles\LibProjectFile.csproj" />
+    <EmbeddedResource Include="Resources\ProjectFiles\SampleProjectFile-DontUpdateCommonLibVersions.csproj" />
+    <EmbeddedResource Include="Resources\ProjectFiles\SampleProjectFile.csproj" />
   </ItemGroup>
   
   <ItemGroup>

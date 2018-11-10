@@ -2,7 +2,7 @@ using System.IO.Abstractions;
 
 namespace Automatize.FileFinders
 {
-    public class ProjectFileFinder : FileFinder
+    public class ProjectFileFinder : FileFinder, IFileFinder
     {
         //TODO: Might be a good idea to discover project files from the solution file?
         //Craven had an idea that you could run the tool, pointing it at a sol file or a proj file
