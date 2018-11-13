@@ -2,7 +2,7 @@
   "profiles": {
     "Automatize": {
       "commandName": "Project",
-      "commandLineArgs": "Upgrade C:\\dev\\test-solution\\  true"
+      "commandLineArgs": "Upgrade E:\\product.risk-capture\\  --useLinux"
     }
   }
 }

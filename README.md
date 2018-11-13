@@ -18,7 +18,7 @@ If the target folder contains many projects/solutions, then they will all be upd
 
 If your project uses any MicroMachines.Common packages, then these will be upgraded to the minimum required version to support the update, if they are lower than the minimum version. 
 
-Automatize will always update to the latest Major/Minor version. So if the latest version of 2.1 is 2.1.5, you'll get 2.1.5. Any previous patch versions will be skipped are effectively ignored.
+Automatize will always update to the latest Major/Minor version. So if the latest version of 2.1 is 2.1.6, you'll get 2.1.6. Any previous patch versions will be skipped are effectively ignored.
 
 
 ## What it doesn't do
@@ -36,7 +36,7 @@ You'll need .Net Core 2.1 SDK installed locally. Download at www.dot.net
 ## To Install:
 
 ```
-dotnet tool install automatize -g --version 1.0.5
+dotnet tool install automatize -g --version 1.0.6
 ```
 
 ## Usage:

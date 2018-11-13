@@ -189,14 +189,14 @@ namespace Automatize.VersionUpdaters
 
         private string TargetFramework => $"netcoreapp{MajorVersion}.{MinorVersion}";
 
-        private static string LinuxSdkImageVersion => "dotnet:2.1.403-sdk";
-        private static string AlpineSdkImageVersion => "dotnet:2.1.403-sdk-alpine3.7";
+        private static string LinuxSdkImageVersion => "dotnet:2.1.500-sdk";
+        private static string AlpineSdkImageVersion => "dotnet:2.1.500-sdk-alpine3.7";
 
-        private static string LinuxRuntimeImageVersion => "dotnet:2.1.5-aspnetcore-runtime";
-        private static string AlplineRuntimeImageVersion => "dotnet:2.1.5-aspnetcore-runtime-alpine3.7";
+        private static string LinuxRuntimeImageVersion => "dotnet:2.1.6-aspnetcore-runtime";
+        private static string AlplineRuntimeImageVersion => "dotnet:2.1.6-aspnetcore-runtime-alpine3.7";
 
         private static string MinimumCommonLibVersion => "1.0.310";
 
-        private static string MonoVersion => "5.14.0.177";
+        private static string MonoVersion => "5.16.0.179";
     }
 }

@@ -20,7 +20,7 @@ namespace Automatize
 
         [Option(CommandOptionType.NoValue, ShowInHelpText = true, ShortName = "l", LongName = "useLinux",
             Description = "The Base image to use in your DockerFile. Valid options are 'Alpine' or 'Linux'")]
-        public bool UseLinuxBaseImage { get; } = false;
+        public bool UseLinuxBaseImage { get; }
 
         private readonly IFileSystem _fileSystem;
 
