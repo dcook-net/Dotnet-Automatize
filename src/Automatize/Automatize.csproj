@@ -11,8 +11,8 @@
     <Description>A Tool for Automatically Upgrading .Net Core Solutions to a new version</Description>
     <Authors>Dave Cook</Authors>
     <PackageTags>Dotnet Core; Global Tool; Upgrade; Automation</PackageTags>
-    <PackageProjectUrl>https://github.com/cookie1981/Dotnet-Automatize</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/cookie1981/Dotnet-Automatize</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/dcook-net/Dotnet-Automatize</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/dcook-net/Dotnet-Automatize</RepositoryUrl>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="McMaster.Extensions.CommandLineUtils" Version="2.2.5" />
