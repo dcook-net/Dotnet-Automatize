@@ -2,9 +2,10 @@ using System.IO.Abstractions;
 
 namespace Automatize.FileFinders
 {
-    public class EnvironmentFileFinder : FileFinder, IFileFinder
+    public class EnvironmentFileFinder : FileFinder, IEnvironmentFileFinder
     {
-        public EnvironmentFileFinder(IFileSystem fileSystem) : base(fileSystem, "*.env")
+        public EnvironmentFileFinder(IFileSystem fileSystem = null) 
+            : base("*.env", fileSystem ?? new FileSystem())
         { }
     }
 }

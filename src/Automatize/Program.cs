@@ -1,5 +1,9 @@
 ﻿using System;
+using Automatize.FileFinders;
+using Automatize.Version;
 using McMaster.Extensions.CommandLineUtils;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace Automatize
 {
@@ -11,8 +15,23 @@ namespace Automatize
     {
         public static int Main(string[] args)
         {
-            var app = new CommandLineApplication<Program> {ThrowOnUnexpectedArgument = false};
-            app.Conventions.UseDefaultConventions().UseConstructorInjection();
+            var serviceCollection = new ServiceCollection()
+                .AddSingleton(PhysicalConsole.Singleton)
+                .AddSingleton<IProjectFileFinder, ProjectFileFinder>()
+                .AddSingleton<IDockerFileFinder, DockerFileFinder>()
+                .AddSingleton<IDockerFileFinder, DockerFileFinder>()
+                .AddSingleton<IEnvironmentFileFinder, EnvironmentFileFinder>()
+                .AddSingleton<IVersionUpdateCollection, VersionUpdaterCollection>()
+                .AddSingleton<IUpdaterFacotry, UpdaterFactory>();
+
+            serviceCollection.TryAddEnumerable(ServiceDescriptor.Singleton<IDotNetVersionUpdater, Version2Point1Updater>());
+
+            var services = serviceCollection.BuildServiceProvider();
+
+            var app = new CommandLineApplication<Program>();
+            app.Conventions
+                .UseDefaultConventions()
+                .UseConstructorInjection(services);
 
             try
             {

@@ -1,8 +1,6 @@
 ﻿using System.IO;
-using System.IO.Abstractions;
 using System.Threading.Tasks;
-using Automatize.FileFinders;
-using Automatize.VersionUpdater;
+using Automatize.Version;
 using McMaster.Extensions.CommandLineUtils;
 
 namespace Automatize
@@ -14,6 +12,9 @@ namespace Automatize
     [HelpOption]
     public class UpgradeCommand
     {
+        private readonly IVersionUpdateCollection _versionUpdaterCollection;
+        private readonly IUpdaterFacotry _updaterFactory;
+
         [Argument(0, ShowInHelpText = true, Name = "path", Description = "Path to the directory to upgrade. Defaults to current location.")]
         [DirectoryExists]
         public string Path { get; private set; }
@@ -22,14 +23,10 @@ namespace Automatize
             Description = "The Base image to use in your DockerFile. Valid options are 'Alpine' or 'Linux'")]
         public bool UseLinuxBaseImage { get; }
 
-        private readonly IFileSystem _fileSystem;
-
-        public UpgradeCommand() : this(null)
-        {}
-
-        public UpgradeCommand(IFileSystem fileSystem)
+        public UpgradeCommand(IVersionUpdateCollection versionUpdaterCollection, IUpdaterFacotry updaterFactory)
         {
-            _fileSystem = fileSystem ?? new FileSystem();
+            _versionUpdaterCollection = versionUpdaterCollection;
+            _updaterFactory = updaterFactory;
         }
 
         public async Task<int> OnExecute(CommandLineApplication app, IConsole console)
@@ -46,22 +43,12 @@ namespace Automatize
             }
 
             console.WriteLine($"Starting updating of {Path}");
+            
+            var dotNetVersionUpdater = _versionUpdaterCollection.GetLatest();
 
-            var projectFileFileFinder = new ProjectFileFinder(_fileSystem);
-            var dockerFileFinder = new DockerFileFinder(_fileSystem);
-            var environmentFileFinder = new EnvironmentFileFinder(_fileSystem);
+            var updater = _updaterFactory.Build(dotNetVersionUpdater);
 
-            //TODO: inject the version updater based on the version the user wants
-            var dotNetVersionUpdater = new Version2Point1Updater();
-
-            var versionUpdater = new VersionUpdater.VersionUpdater(dotNetVersionUpdater,
-                                                    _fileSystem, 
-                                                    console, 
-                                                    projectFileFileFinder, 
-                                                    dockerFileFinder, 
-                                                    environmentFileFinder);
-
-            versionUpdater.UpgradeToVersion(Path, UseLinuxBaseImage);
+            updater.UpgradeToVersion(Path, UseLinuxBaseImage);
 
             return await Task.FromResult(0);
         }

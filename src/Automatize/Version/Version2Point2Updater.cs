@@ -1,6 +1,6 @@
-﻿namespace Automatize.VersionUpdater
+﻿namespace Automatize.Version
 {
-    //Implement this once 2.2 is out of preview
+//    Implement this once 2.2 is out of preview
 //    public class Verion2Point2Updater : IDotNetVersionUpdater
 //    {
 //        public int MajorVersion => 2;

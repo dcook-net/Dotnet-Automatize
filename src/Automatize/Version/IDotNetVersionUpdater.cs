@@ -1,4 +1,4 @@
-﻿namespace Automatize.VersionUpdater
+﻿namespace Automatize.Version
 {
     public interface IDotNetVersionUpdater
     {

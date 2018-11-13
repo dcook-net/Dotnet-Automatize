@@ -5,13 +5,13 @@ using System.IO.Abstractions.TestingHelpers;
 using System.Linq;
 using System.Reflection;
 using Automatize.FileFinders;
-using Automatize.VersionUpdater;
+using Automatize.Version;
 using McMaster.Extensions.CommandLineUtils;
 using NUnit.Framework;
 
 namespace Automatize.Tests
 {
-    public class VersionUpdaterTestBase
+    public abstract class VersionUpdaterTestBase
     {
         private readonly IDotNetVersionUpdater _dotNetVersionUpdater; 
         private MockFileSystem _mockFileSystem;
@@ -55,14 +55,14 @@ namespace Automatize.Tests
             AssertFileContentAsExpected(nameOfResourceFileWithContentToUpdate, nameOfResourceFileWithExpectedContent);
         }
 
-        private VersionUpdater.VersionUpdater CreateVersionUpdater(IFileSystem mockFileSystem)
+        private Updater CreateVersionUpdater(IFileSystem mockFileSystem)
         {
             var projectFileFileFinder = new ProjectFileFinder(mockFileSystem);
             var dockerFileFileFinder = new DockerFileFinder(mockFileSystem);
             var environmentFileFileFinder = new EnvironmentFileFinder(mockFileSystem);
 
-            return new VersionUpdater.VersionUpdater(_dotNetVersionUpdater, mockFileSystem, new PhysicalConsole(), projectFileFileFinder,
-                dockerFileFileFinder, environmentFileFileFinder);
+            return new Updater(_dotNetVersionUpdater, new PhysicalConsole(), projectFileFileFinder,
+                dockerFileFileFinder, environmentFileFileFinder, mockFileSystem);
         }
 
         private void AssertFileContentAsExpected(string nameOfFileInMockFileSystem, string nameOfResourceFileWithExpecteContent)

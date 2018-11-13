@@ -2,9 +2,10 @@ using System.IO.Abstractions;
 
 namespace Automatize.FileFinders
 {
-    public class DockerFileFinder : FileFinder, IFileFinder
+    public class DockerFileFinder : FileFinder, IDockerFileFinder
     {
-        public DockerFileFinder(IFileSystem fileSystem) : base(fileSystem, "DockerFile?*")
+        public DockerFileFinder(IFileSystem fileSystem = null) 
+            : base("DockerFile?*", fileSystem ?? new FileSystem())
         {}
     }
 }

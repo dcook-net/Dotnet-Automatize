@@ -1,7 +1,7 @@
 ﻿using System.Text;
 using System.Xml;
 
-namespace Automatize.VersionUpdater
+namespace Automatize.Version
 {
     public static class XmlDocumentExtensions
     {

@@ -7,4 +7,19 @@ namespace Automatize.FileFinders
     {
         IEnumerable<FileInfo> Search(string directoryToSearch);
     }
+
+    //TODO: remove these interfaces and just use the one?
+
+    public interface IProjectFileFinder : IFileFinder
+    {
+    }
+
+    public interface IDockerFileFinder : IFileFinder
+    {
+    }
+
+    public interface IEnvironmentFileFinder : IFileFinder
+
+    {
+    }
 }

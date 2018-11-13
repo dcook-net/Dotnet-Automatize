@@ -9,19 +9,24 @@ using Automatize.Extensions;
 using Automatize.FileFinders;
 using McMaster.Extensions.CommandLineUtils;
 
-namespace Automatize.VersionUpdater
+namespace Automatize.Version
 {
-    public class VersionUpdater
+    public class Updater
     {
         private const StringComparison InvariantCultureIgnoreCase = StringComparison.InvariantCultureIgnoreCase;
         private readonly IFileSystem _fileSystem;
         private readonly IDotNetVersionUpdater _dotNetVersionUpdater;
         private readonly IConsole _console;
-        private readonly IFileFinder _projectFileFileFinder;
-        private readonly IFileFinder _dockerFileFinder;
-        private readonly IFileFinder _environmentFileFinder;
+        private readonly IProjectFileFinder _projectFileFileFinder;
+        private readonly IDockerFileFinder _dockerFileFinder;
+        private readonly IEnvironmentFileFinder _environmentFileFinder;
 
-        public VersionUpdater(IDotNetVersionUpdater dotNetVersionUpdater, IFileSystem fileSystem, IConsole console, IFileFinder projectFileFileFinder, IFileFinder dockerFileFinder, IFileFinder environmentFileFinder)
+        public Updater(IDotNetVersionUpdater dotNetVersionUpdater,
+            IConsole console,
+            IProjectFileFinder projectFileFileFinder,
+            IDockerFileFinder dockerFileFinder,
+            IEnvironmentFileFinder environmentFileFinder, 
+            IFileSystem fileSystem = null)
         {
             _fileSystem = fileSystem ?? new FileSystem();
             _dotNetVersionUpdater = dotNetVersionUpdater;

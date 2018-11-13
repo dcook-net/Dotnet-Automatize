@@ -10,9 +10,9 @@ namespace Automatize.FileFinders
         private readonly IFileSystem _fileSystem;
         private readonly string _searchPattern;
 
-        protected FileFinder(IFileSystem fileSystem, string searchPattern)
+        protected FileFinder(string searchPattern, IFileSystem fileSystem = null)
         {
-            _fileSystem = fileSystem;
+            _fileSystem = fileSystem ?? new FileSystem();
             _searchPattern = searchPattern;
         }
 

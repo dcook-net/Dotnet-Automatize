@@ -1,8 +1,9 @@
-using Automatize.VersionUpdater;
+using Automatize.Version;
 using NUnit.Framework;
 
 namespace Automatize.Tests
 {
+    [Parallelizable]
     public class VersionUpdaterTests : VersionUpdaterTestBase
     {
         public VersionUpdaterTests() : base(new Version2Point1Updater())
