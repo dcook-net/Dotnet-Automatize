@@ -36,7 +36,7 @@ You'll need .Net Core 2.1 SDK installed locally. Download at www.dot.net
 ## To Install:
 
 ```
-dotnet tool install automatize -g --version 1.0.6
+dotnet tool install automatize -g --version 1.0.8
 ```
 
 ## Usage:
