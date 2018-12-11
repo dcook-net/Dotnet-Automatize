@@ -12,13 +12,13 @@ It's a .Net global tool, so it works on Mac and Windows.
 ## What does 
 
 Automatize is a fairly blunt instrument.
-It will update all of your Project File(s), DockerFile(s) and .env file(s) within the target folder with the changes required for migrating to .Net 2.1. 
-(This currently only supports upgrades from 2.0 - 2.1).
-If the target folder contains many projects/solutions, then they will all be updated. So, if all your code live under one root folder, it is possible to update them all with a single instruction.
+It will update all of your Project File(s), DockerFile(s) and .env file(s) within the target folder with the changes required for migrating to the specified version of .Net Core.
+It currently supports upgrades from  2.0 -> 2.1, and 2.1 -> 2.2. 
+If the target folder contains many projects/solutions, then they will all be updated. So, if all your development projects live under one root folder, it is possible to update them all with a single instruction.
 
 If your project uses any MicroMachines.Common packages, then these will be upgraded to the minimum required version to support the update, if they are lower than the minimum version. 
 
-Automatize will always update to the latest Major/Minor version. So if the latest version of 2.1 is 2.1.6, you'll get 2.1.6. Any previous patch versions will be skipped are effectively ignored.
+Automatize will always update to the latest patch version. So if the latest version of 2.1 is 2.1.6, you'll get 2.1.6. Any previous patch versions will be skipped and are effectively ignored.
 
 
 ## What it doesn't do
@@ -36,7 +36,7 @@ You'll need .Net Core 2.1 SDK installed locally. Download at www.dot.net
 ## To Install:
 
 ```
-dotnet tool install automatize -g --version 1.0.8
+dotnet tool install automatize -g --version 1.1.0
 ```
 
 ## Usage:
@@ -53,6 +53,7 @@ Alternatively, if you navigate to the desired folder, you can omit the Path and 
 
 PathToDirectory - Fully qualified Path to the directory you wish to upgrade. Defaults to current location.
 --useLinux - By Default the Base image to use in your DockerFile is assumed to be Alpine. If you would rather use a Linux base image include the --useLinux switch, or -l. Windows is not currently supported.
+--minorversion - The minor version of .Net Core 2 to upgrade to. Defaults to 2 (ie, 2.2) (Currently no validation on this, so anything other than 1 or 2 is likely to throw an exception.)
 
 ## Upgrading your version:
 
@@ -64,7 +65,8 @@ dotnet tool update automatize -g
 
 ## Coming updates:
 
-Currently, Automatize only works with migration from 2.0 to 2.1, but the plan is to keep updating for each new version of .Net Core, (possibly even with preview releases). Updates will be applied incrementally, so upgrading from 2.0 to 2.2 Automatize will apply updates for 2.1, then 2.2, all with a single command.
+The plan is to keep updating for each new version of .Net Core, (possibly even with preview releases).
+I'd like to apply updates incrementally, so upgrading from 2.0 to 2.2 will apply updates for 2.1, then 2.2, all with a single command.
 
 I'd also like to extend the behaviour to automatically build & test your upgraded application, and commit to git supplying an optional Jira ticket number to support smart commits.
 

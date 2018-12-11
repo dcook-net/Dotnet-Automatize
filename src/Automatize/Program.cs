@@ -25,6 +25,7 @@ namespace Automatize
                 .AddSingleton<IUpdaterFacotry, UpdaterFactory>();
 
             serviceCollection.TryAddEnumerable(ServiceDescriptor.Singleton<IDotNetVersionUpdater, Version2Point1Updater>());
+            serviceCollection.TryAddEnumerable(ServiceDescriptor.Singleton<IDotNetVersionUpdater, Version2Point2Updater>());
 
             var services = serviceCollection.BuildServiceProvider();
 

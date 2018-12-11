@@ -6,8 +6,8 @@ variables:
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
   Major: 1
-  Minor: 0
-  Patch: 8
+  Minor: 1
+  Patch: 0
 
 steps:
 - task: DotNetCoreInstaller@0

@@ -21,7 +21,12 @@ namespace Automatize
 
         [Option(CommandOptionType.NoValue, ShowInHelpText = true, ShortName = "l", LongName = "useLinux",
             Description = "The Base image to use in your DockerFile. Valid options are 'Alpine' or 'Linux'")]
-        public bool UseLinuxBaseImage { get; }
+        public bool UseLinuxBaseImage { get; } = false;
+
+        [Option(CommandOptionType.SingleOrNoValue, ShowInHelpText = true, ShortName="mv", LongName = "minorversion", Description = "Specify which minor version of .Net Core you want 2 or 1. Major version is always 2 at the moment.")]
+        public int MinorVersion { get; set; } = 2;
+
+        private static int MajorVersion => 2;
 
         public UpgradeCommand(IVersionUpdateCollection versionUpdaterCollection, IUpdaterFacotry updaterFactory)
         {
@@ -42,9 +47,9 @@ namespace Automatize
                 return await Task.FromResult(-1);
             }
 
-            console.WriteLine($"Starting updating of {Path}");
+            console.WriteLine($"Starting updating of {Path} to .Net Core v{MajorVersion}.{MinorVersion}");
             
-            var dotNetVersionUpdater = _versionUpdaterCollection.GetLatest();
+            var dotNetVersionUpdater = _versionUpdaterCollection.Find(MajorVersion, MinorVersion);
 
             var updater = _updaterFactory.Build(dotNetVersionUpdater);
 
