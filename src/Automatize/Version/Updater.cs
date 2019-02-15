@@ -169,7 +169,7 @@ namespace Automatize.Version
 
         private string GetRuntimeVersion(bool useLinuxBaseImage)
         {
-            return useLinuxBaseImage ? _dotNetVersionUpdater.LinuxRuntimeImageVersion : _dotNetVersionUpdater.AlplineRuntimeImageVersion;
+            return useLinuxBaseImage ? _dotNetVersionUpdater.LinuxRuntimeImageVersion : _dotNetVersionUpdater.AlpineRuntimeImageVersion;
         }
         
         private string UpdateProjectFileContents(string projectFileContents, bool useLinuxBaseImage)

@@ -9,7 +9,7 @@
         public string LinuxSdkImageVersion => "dotnet:2.1.500-sdk";
         public string AlpineSdkImageVersion => "dotnet:2.1.500-sdk-alpine3.7";
         public string LinuxRuntimeImageVersion => "dotnet:2.1.6-aspnetcore-runtime";
-        public string AlplineRuntimeImageVersion => "dotnet:2.1.6-aspnetcore-runtime-alpine3.7";
+        public string AlpineRuntimeImageVersion => "dotnet:2.1.6-aspnetcore-runtime-alpine3.7";
         public string MinimumCommonLibVersion => "1.0.310";
         public string MonoVersion => "5.16.0.179";
     }

@@ -23,7 +23,7 @@ namespace Automatize.Tests
             public string LinuxSdkImageVersion { get; set; }
             public string AlpineSdkImageVersion { get; set; }
             public string LinuxRuntimeImageVersion { get; set; }
-            public string AlplineRuntimeImageVersion { get; set; }
+            public string AlpineRuntimeImageVersion { get; set; }
             public string MonoVersion { get; set; }
         }
 

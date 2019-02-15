@@ -13,7 +13,7 @@
         string AlpineSdkImageVersion { get; }
 
         string LinuxRuntimeImageVersion { get; }
-        string AlplineRuntimeImageVersion { get; }
+        string AlpineRuntimeImageVersion { get; }
 
         string MonoVersion { get; }
     }
