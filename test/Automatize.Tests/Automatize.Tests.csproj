@@ -7,20 +7,34 @@
 
   <ItemGroup>
     <EmbeddedResource Include="Resources\DockerFiles\DockerFile_Expected" />
+    <EmbeddedResource Include="Resources\DockerFiles\DockerFile_Expected-v2.2.2" />
     <EmbeddedResource Include="Resources\DockerFiles\DockerFile_Linux_Expected" />
+    <EmbeddedResource Include="Resources\DockerFiles\DockerFile_Linux_Expected-v2.2.2" />
     <EmbeddedResource Include="Resources\DockerFiles\DockerFile_Sample" />
+    <EmbeddedResource Include="Resources\DockerFiles\DockerFile_Sample-v2.1" />
+    <EmbeddedResource Include="Resources\EnvFiles\Expected-v2.2.2.env" />
+    <EmbeddedResource Include="Resources\EnvFiles\Expected_Linux-v2.2.2.env" />
     <EmbeddedResource Include="Resources\EnvFiles\Expected_Linux.env" />
     <EmbeddedResource Include="Resources\EnvFiles\Expected.env" />
     <EmbeddedResource Include="Resources\EnvFiles\Sample.env" />
+    <EmbeddedResource Include="Resources\ProjectFiles\ExpectedLibProjFile-v2.2.2.csproj" />
     <EmbeddedResource Include="Resources\ProjectFiles\ExpectedNetStandardXmlFile.csproj" />
     <EmbeddedResource Include="Resources\ProjectFiles\ExpectedLibProjFile.csproj" />
+    <EmbeddedResource Include="Resources\ProjectFiles\ExpectedProjFile-v2.2.2.csproj" />
+    <EmbeddedResource Include="Resources\ProjectFiles\ExpectedResult-DontUpdateCommonLibVersions-v2.2.2.csproj" />
+    <EmbeddedResource Include="Resources\ProjectFiles\LibProjectFile-v2.1.csproj" />
     <EmbeddedResource Include="Resources\ProjectFiles\NetStandardXmlFile.csproj" />
     <EmbeddedResource Include="Resources\ProjectFiles\ExpectedProjFile.csproj" />
     <EmbeddedResource Include="Resources\ProjectFiles\InvalidXmlFile.csproj" />
     <EmbeddedResource Include="Resources\ProjectFiles\ExpectedResult-DontUpdateCommonLibVersions.csproj" />
     <EmbeddedResource Include="Resources\ProjectFiles\LibProjectFile.csproj" />
+    <EmbeddedResource Include="Resources\ProjectFiles\SampleProjectFile-2.1.csproj" />
+    <EmbeddedResource Include="Resources\ProjectFiles\SampleProjectFile-DontUpdateCommonLibVersions-v2.1.csproj" />
     <EmbeddedResource Include="Resources\ProjectFiles\SampleProjectFile-DontUpdateCommonLibVersions.csproj" />
+    <EmbeddedResource Include="Resources\ProjectFiles\SampleProjectFile-v2.1.csproj" />
     <EmbeddedResource Include="Resources\ProjectFiles\SampleProjectFile.csproj" />
+    <EmbeddedResource Include="Resources\DockerComposeFiles\expected-docker-compose-v2.2.yml" />
+    <EmbeddedResource Include="Resources\DockerComposeFiles\sample-docker-compose.yml" />
   </ItemGroup>
   
   <ItemGroup>

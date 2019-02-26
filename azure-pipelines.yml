@@ -6,7 +6,7 @@ variables:
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
   Major: 1
-  Minor: 4
+  Minor: 5
   Patch: 0
 
 steps:

@@ -19,7 +19,10 @@ namespace Automatize.FileFinders
     }
 
     public interface IEnvironmentFileFinder : IFileFinder
-
+    {
+    }
+    
+    public interface IDockerComposeFileFinder : IFileFinder
     {
     }
 }

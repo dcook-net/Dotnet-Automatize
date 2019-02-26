@@ -47,7 +47,7 @@ namespace Automatize.Tests
 
         protected void TestUpgrade(string nameOfResourceFileWithContentToUpdate, string nameOfResourceFileWithExpectedContent, bool useLinuxBaseImage)
         {
-            SetupMockeFileSystem(nameOfResourceFileWithContentToUpdate);
+            SetupMockFileSystem(nameOfResourceFileWithContentToUpdate);
             var versionUpdater = CreateVersionUpdater(_mockFileSystem);
 
             versionUpdater.UpgradeToVersion(_root, useLinuxBaseImage);
@@ -60,18 +60,19 @@ namespace Automatize.Tests
             var projectFileFileFinder = new ProjectFileFinder(mockFileSystem);
             var dockerFileFileFinder = new DockerFileFinder(mockFileSystem);
             var environmentFileFileFinder = new EnvironmentFileFinder(mockFileSystem);
+            var dockerComposeFileFileFinder = new DockerComposeFileFinder(mockFileSystem);
 
             return new Updater(_dotNetVersionUpdater, new PhysicalConsole(), projectFileFileFinder,
-                dockerFileFileFinder, environmentFileFileFinder, mockFileSystem);
+                dockerFileFileFinder, environmentFileFileFinder, dockerComposeFileFileFinder, mockFileSystem);
         }
 
-        private void AssertFileContentAsExpected(string nameOfFileInMockFileSystem, string nameOfResourceFileWithExpecteContent)
+        private void AssertFileContentAsExpected(string nameOfFileInMockFileSystem, string nameOfResourceFileWithExpectedContent)
         {
             var fileContent = GetFileContent(nameOfFileInMockFileSystem);
-            Assert.That(fileContent, Is.EqualTo(ReadResourceFile(nameOfResourceFileWithExpecteContent)));
+            Assert.That(fileContent, Is.EqualTo(ReadResourceFile(nameOfResourceFileWithExpectedContent)));
         }
 
-        private void SetupMockeFileSystem(string nameOfResourceFileContainingContent)
+        private void SetupMockFileSystem(string nameOfResourceFileContainingContent)
         {
             var fileName = $"{_root}{nameOfResourceFileContainingContent}";
 

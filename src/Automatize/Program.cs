@@ -21,6 +21,7 @@ namespace Automatize
                 .AddSingleton<IDockerFileFinder, DockerFileFinder>()
                 .AddSingleton<IDockerFileFinder, DockerFileFinder>()
                 .AddSingleton<IEnvironmentFileFinder, EnvironmentFileFinder>()
+                .AddSingleton<IDockerComposeFileFinder, DockerComposeFileFinder>()
                 .AddSingleton<IVersionUpdateCollection, VersionUpdaterCollection>()
                 .AddSingleton<IUpdaterFacotry, UpdaterFactory>();
 

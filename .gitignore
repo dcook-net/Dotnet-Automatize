@@ -16,3 +16,4 @@ nupkgs/
 project.lock.json
 
 *.idea
+*DS_Store*

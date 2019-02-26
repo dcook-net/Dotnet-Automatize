@@ -1,14 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
     <OutputType>Exe</OutputType>
     <Product>energy.enquiry-presenter</Product>
     <UserSecretsId>0e4201a0-ab05-4c5a-883a-6368760c5a16</UserSecretsId>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="MicroMachines.Common.Core" Version="1.0.345" />
     <PackageReference Include="MicroMachines.Common.Events" Version="1.0.345" />
-    <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="ReferenceData.Client" Version="1.0.125" />
     <PackageReference Include="Risk.Schema.Validator" Version="1.1.114" />
     <PackageReference Include="ValueInjecter" Version="3.1.3" />

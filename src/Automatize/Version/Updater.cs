@@ -20,12 +20,14 @@ namespace Automatize.Version
         private readonly IProjectFileFinder _projectFileFileFinder;
         private readonly IDockerFileFinder _dockerFileFinder;
         private readonly IEnvironmentFileFinder _environmentFileFinder;
+        private readonly IDockerComposeFileFinder _dockerComposeFileFinder;
 
         public Updater(IDotNetVersionUpdater dotNetVersionUpdater,
             IConsole console,
             IProjectFileFinder projectFileFileFinder,
             IDockerFileFinder dockerFileFinder,
             IEnvironmentFileFinder environmentFileFinder, 
+            IDockerComposeFileFinder dockerComposeFileFinder,
             IFileSystem fileSystem = null)
         {
             _fileSystem = fileSystem ?? new FileSystem();
@@ -34,6 +36,7 @@ namespace Automatize.Version
             _projectFileFileFinder = projectFileFileFinder;
             _dockerFileFinder = dockerFileFinder;
             _environmentFileFinder = environmentFileFinder;
+            _dockerComposeFileFinder = dockerComposeFileFinder;
         }
 
         public void UpgradeToVersion(string path, bool useLinuxBaseImage)
@@ -42,6 +45,7 @@ namespace Automatize.Version
             var dockerFiles = _dockerFileFinder.Search(path);
             var projectFiles = _projectFileFileFinder.Search(path);
             var envFiles = _environmentFileFinder.Search(path);
+            var dockerComposeFiles = _dockerComposeFileFinder.Search(path);
 
             //Probably ought to pass the target version number in here, 
             //then work out which updater to use, rather than supply it on constructor.
@@ -49,6 +53,7 @@ namespace Automatize.Version
             UpdateProjectFiles(projectFiles, useLinuxBaseImage);
             UpdateDockerFiles(dockerFiles, useLinuxBaseImage);
             UpdateEnvironmentFiles(envFiles, useLinuxBaseImage);
+            UpdateDockerComposeFiles(dockerComposeFiles);
         }
 
         private void UpdateProjectFiles(IEnumerable<FileInfo> projectFiles, bool useLinuxBaseImage)
@@ -64,6 +69,11 @@ namespace Automatize.Version
         private void UpdateEnvironmentFiles(IEnumerable<FileInfo> envFiles, bool useLinuxBaseImage)
         {
             UpdateFiles(envFiles, UpdateEnvFileContent, "No .env files found!", useLinuxBaseImage);
+        }
+
+        private void UpdateDockerComposeFiles(IEnumerable<FileInfo> composeFiles)
+        {
+            UpdateFiles(composeFiles, UpdateDockerComposeFileContent, "No Docker Compose files found!", false );
         }
 
         private void UpdateFiles(IEnumerable<FileInfo> filesToUpdate, Func<string, bool, string> updateMethod, string noFilesFoundMessage, bool useLinuxBaseImage)
@@ -152,7 +162,7 @@ namespace Automatize.Version
             return Update(envFileContents, useLinuxBaseImage, dotnetRuntimeImage, GetRuntimeVersion);
         }
 
-        private string FindLineToReplace(string stringContent, string stringToFind)
+        private static string FindLineToReplace(string stringContent, string stringToFind)
         {
             var start = stringContent.IndexOf(stringToFind, InvariantCultureIgnoreCase);
             if (start <= -1)//TODO: unit test
@@ -221,6 +231,11 @@ namespace Automatize.Version
 
             return updatedEnvFile;
         }
+        
+        private string UpdateDockerComposeFileContent(string fileContents, bool _)
+        {
+            return fileContents.Replace(_dotNetVersionUpdater.CurrentFramework, _dotNetVersionUpdater.TargetFramework);
+        }
 
         private string UpdateMonoVersion(string envFileContents)
         {
@@ -244,15 +259,15 @@ namespace Automatize.Version
 
         private string UpdateFromStatement(string dockerFileContents, bool useLinuxBaseImage)
         {
-            const string fromStatment = "FROM microsoft/";
+            const string fromStatement = "FROM microsoft/";
 
-            var stringToReplace = FindLineToReplace(dockerFileContents, fromStatment);
+            var stringToReplace = FindLineToReplace(dockerFileContents, fromStatement);
             var baseImageVersion = GetRuntimeVersion(useLinuxBaseImage);
 
             //TODO: Unit test required
             return stringToReplace is null
                 ? dockerFileContents
-                : dockerFileContents.Replace(stringToReplace, $"{fromStatment}{baseImageVersion}");
+                : dockerFileContents.Replace(stringToReplace, $"{fromStatement}{baseImageVersion}");
         }
     }
 }

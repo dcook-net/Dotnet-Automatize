@@ -2,7 +2,7 @@
   "profiles": {
     "Automatize": {
       "commandName": "Project",
-      "commandLineArgs": "Upgrade E:\\product.risk-capture\\ -mv:2"
+      "commandLineArgs": "Upgrade /Users/davidcook/TestAutomatize -mv:2"
     }
   }
 }

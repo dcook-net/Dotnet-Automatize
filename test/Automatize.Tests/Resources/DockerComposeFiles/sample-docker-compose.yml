@@ -1,0 +1,10 @@
+version: '2'
+services:
+  api:
+    image: ${DOTNET_IMAGE}
+    expose:
+      - 9000
+    volumes:
+      - ./src/servicename/bin/Release/netcoreapp2.1/publish:/build
+    working_dir: /build
+    command: dotnet servicename.dll
