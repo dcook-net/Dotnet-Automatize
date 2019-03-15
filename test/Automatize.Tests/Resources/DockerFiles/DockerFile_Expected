@@ -1,4 +1,4 @@
-﻿FROM microsoft/dotnet:2.1.6-aspnetcore-runtime-alpine3.7
+﻿FROM microsoft/dotnet:2.1.9-aspnetcore-runtime-alpine3.9
 
 COPY./src/EnquiryPresenter/bin/Release/netcoreapp2.1/publish/build
 
