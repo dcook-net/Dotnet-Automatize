@@ -150,14 +150,14 @@ namespace Automatize.Version
 
         private string UpdateSdkImage(string envFileContents, bool useLinuxBaseImage)
         {
-            const string dotnetSdkImage = "DOTNET_SDK_IMAGE=microsoft/";
+            const string dotnetSdkImage = "DOTNET_SDK_IMAGE=";
 
             return Update(envFileContents, useLinuxBaseImage, dotnetSdkImage, GetSdkImageVersion);
         }
 
         private string UpdateRuntimeImage(string envFileContents, bool useLinuxBaseImage)
         {
-            const string dotnetRuntimeImage = "DOTNET_IMAGE=microsoft/";
+            const string dotnetRuntimeImage = "DOTNET_IMAGE=";
 
             return Update(envFileContents, useLinuxBaseImage, dotnetRuntimeImage, GetRuntimeVersion);
         }
@@ -262,12 +262,16 @@ namespace Automatize.Version
             const string fromStatement = "FROM microsoft/";
 
             var stringToReplace = FindLineToReplace(dockerFileContents, fromStatement);
+
+            if (stringToReplace is null)
+                stringToReplace = FindLineToReplace(dockerFileContents, "FROM MCR.");
+            
             var baseImageVersion = GetRuntimeVersion(useLinuxBaseImage);
 
             //TODO: Unit test required
             return stringToReplace is null
                 ? dockerFileContents
-                : dockerFileContents.Replace(stringToReplace, $"{fromStatement}{baseImageVersion}");
+                : dockerFileContents.Replace(stringToReplace, $"FROM {baseImageVersion}");
         }
     }
 }

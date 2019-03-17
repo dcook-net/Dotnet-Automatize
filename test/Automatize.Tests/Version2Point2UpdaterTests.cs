@@ -20,16 +20,19 @@ namespace Automatize.Tests
             TestUpgrade(nameOfResourceFileWithContentToUpdate, nameOfResourceFileWithExpectedContent, false);
         }
 
-
         [TestCase("DockerFile_Sample-v2.1", "DockerFile_Expected-v2.2.3", false)]
         [TestCase("DockerFile_Sample-v2.1", "DockerFile_Linux_Expected-v2.2.3", true)]
+        [TestCase("DockerFile_Sample-v2.1-mcr", "DockerFile_Expected-v2.2.3", false)]
+        [TestCase("DockerFile_Sample-v2.1-mcr", "DockerFile_Linux_Expected-v2.2.3", true)]
         public void ShouldUpgradeDockerFile(string nameOfResourceFileWithContentToUpdate, string nameOfResourceFileWithExpectedContent, bool useLinuxBaseImage)
         {
             TestUpgrade(nameOfResourceFileWithContentToUpdate, nameOfResourceFileWithExpectedContent, useLinuxBaseImage);
         }
 
         [TestCase("Sample.env", "Expected-v2.2.3.env", false)]
+        [TestCase("Sample-mrc.env", "Expected-v2.2.3.env", false)]
         [TestCase("Sample.env", "Expected_Linux-v2.2.3.env", true)]
+        [TestCase("Sample-mrc.env", "Expected_Linux-v2.2.3.env", true)]
         public void ShouldUpgradeEnvironmentFiles(string nameOfResourceFileWithContentToUpdate, string nameOfResourceFileWithExpectedContent, bool useLinuxBaseImage)
         {
             TestUpgrade(nameOfResourceFileWithContentToUpdate, nameOfResourceFileWithExpectedContent, useLinuxBaseImage);
