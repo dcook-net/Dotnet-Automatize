@@ -7,23 +7,23 @@
 
   <ItemGroup>
     <EmbeddedResource Include="Resources\DockerFiles\DockerFile_Expected" />
-    <EmbeddedResource Include="Resources\DockerFiles\DockerFile_Expected-v2.2.3" />
+    <EmbeddedResource Include="Resources\DockerFiles\DockerFile_Expected-v2.2.4" />
     <EmbeddedResource Include="Resources\DockerFiles\DockerFile_Linux_Expected" />
-    <EmbeddedResource Include="Resources\DockerFiles\DockerFile_Linux_Expected-v2.2.3" />
+    <EmbeddedResource Include="Resources\DockerFiles\DockerFile_Linux_Expected-v2.2.4" />
     <EmbeddedResource Include="Resources\DockerFiles\DockerFile_Sample" />
     <EmbeddedResource Include="Resources\DockerFiles\DockerFile_Sample-v2.1" />
     <EmbeddedResource Include="Resources\DockerFiles\DockerFile_Sample-v2.1-mcr" />
-    <EmbeddedResource Include="Resources\EnvFiles\Expected-v2.2.3.env" />
-    <EmbeddedResource Include="Resources\EnvFiles\Expected_Linux-v2.2.3.env" />
+    <EmbeddedResource Include="Resources\EnvFiles\Expected-v2.2.4.env" />
+    <EmbeddedResource Include="Resources\EnvFiles\Expected_Linux-v2.2.4.env" />
     <EmbeddedResource Include="Resources\EnvFiles\Expected_Linux.env" />
     <EmbeddedResource Include="Resources\EnvFiles\Expected.env" />
     <EmbeddedResource Include="Resources\EnvFiles\Sample-mrc.env" />
     <EmbeddedResource Include="Resources\EnvFiles\Sample.env" />
-    <EmbeddedResource Include="Resources\ProjectFiles\ExpectedLibProjFile-v2.2.3.csproj" />
+    <EmbeddedResource Include="Resources\ProjectFiles\ExpectedLibProjFile-v2.2.4.csproj" />
     <EmbeddedResource Include="Resources\ProjectFiles\ExpectedNetStandardXmlFile.csproj" />
     <EmbeddedResource Include="Resources\ProjectFiles\ExpectedLibProjFile.csproj" />
-    <EmbeddedResource Include="Resources\ProjectFiles\ExpectedProjFile-v2.2.3.csproj" />
-    <EmbeddedResource Include="Resources\ProjectFiles\ExpectedResult-DontUpdateCommonLibVersions-v2.2.3.csproj" />
+    <EmbeddedResource Include="Resources\ProjectFiles\ExpectedProjFile-v2.2.4.csproj" />
+    <EmbeddedResource Include="Resources\ProjectFiles\ExpectedResult-DontUpdateCommonLibVersions-v2.2.4.csproj" />
     <EmbeddedResource Include="Resources\ProjectFiles\LibProjectFile-v2.1.csproj" />
     <EmbeddedResource Include="Resources\ProjectFiles\NetStandardXmlFile.csproj" />
     <EmbeddedResource Include="Resources\ProjectFiles\ExpectedProjFile.csproj" />
