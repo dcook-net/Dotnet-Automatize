@@ -35,7 +35,7 @@ You'll need .Net Core 2.1 SDK installed locally. Download at www.dot.net
 ## To Install:
 
 ```
-dotnet tool install automatize -g --version 2.0.0
+dotnet tool install automatize -g --version 2.0.1
 ```
 
 ## Usage:
@@ -51,9 +51,13 @@ Alternatively, if you navigate to the desired folder, you can omit the Path and 
 ## Params
 
 PathToDirectory - Fully qualified Path to the directory you wish to upgrade. Defaults to current location.
+
 --useLinux - By Default the Base image to use in your DockerFile is assumed to be Alpine. If you would rather use a Linux base image include the --useLinux switch, or -l. Windows is not currently supported.
+
 --package - Flag to indicate if the project being updated is a Library project or not. Defaults to False.
+
 --minorversion - The minor version of .Net Core 2 to upgrade to. Defaults to 2 (ie, 2.2) (Currently no validation on this, so anything other than 1 or 2 is likely to throw an exception.)
+
 
 Examples:
 ```
