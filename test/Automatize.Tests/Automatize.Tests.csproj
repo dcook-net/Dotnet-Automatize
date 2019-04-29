@@ -13,10 +13,14 @@
     <EmbeddedResource Include="Resources\DockerFiles\DockerFile_Sample" />
     <EmbeddedResource Include="Resources\DockerFiles\DockerFile_Sample-v2.1" />
     <EmbeddedResource Include="Resources\DockerFiles\DockerFile_Sample-v2.1-mcr" />
+    <EmbeddedResource Include="Resources\EnvFiles\Expected-Library-v2.2.4.env" />
+    <EmbeddedResource Include="Resources\EnvFiles\Expected-Library_Linux-v2.2.4.env" />
     <EmbeddedResource Include="Resources\EnvFiles\Expected-v2.2.4.env" />
+    <EmbeddedResource Include="Resources\EnvFiles\Expected_Library.env" />
     <EmbeddedResource Include="Resources\EnvFiles\Expected_Linux-v2.2.4.env" />
     <EmbeddedResource Include="Resources\EnvFiles\Expected_Linux.env" />
     <EmbeddedResource Include="Resources\EnvFiles\Expected.env" />
+    <EmbeddedResource Include="Resources\EnvFiles\Expected_Linux_Library.env" />
     <EmbeddedResource Include="Resources\EnvFiles\Sample-mrc.env" />
     <EmbeddedResource Include="Resources\EnvFiles\Sample.env" />
     <EmbeddedResource Include="Resources\ProjectFiles\ExpectedLibProjFile-v2.2.4.csproj" />

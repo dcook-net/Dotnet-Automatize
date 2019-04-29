@@ -14,10 +14,10 @@ namespace Automatize.Tests
         [TestCase("SampleProjectFile-DontUpdateCommonLibVersions-v2.1.csproj", "ExpectedResult-DontUpdateCommonLibVersions-v2.2.4.csproj")]
         [TestCase("SampleProjectFile-v2.1.csproj", "ExpectedProjFile-v2.2.4.csproj")]
         [TestCase("NetStandardXmlFile.csproj", "ExpectedNetStandardXmlFile.csproj")]
-        [TestCase("LibProjectFile-v2.1.csproj", "ExpectedLibProjFile-v2.2.4.csproj")]
-        public void ShouldUpGradeProjectFile(string nameOfResourceFileWithContentToUpdate, string nameOfResourceFileWithExpectedContent)
+        [TestCase("LibProjectFile-v2.1.csproj", "ExpectedLibProjFile-v2.2.4.csproj", true)]
+        public void ShouldUpGradeProjectFile(string nameOfResourceFileWithContentToUpdate, string nameOfResourceFileWithExpectedContent, bool isLibraryProject = false)
         {
-            TestUpgrade(nameOfResourceFileWithContentToUpdate, nameOfResourceFileWithExpectedContent, false);
+            TestUpgrade(nameOfResourceFileWithContentToUpdate, nameOfResourceFileWithExpectedContent, false, isLibraryProject);
         }
 
         [TestCase("DockerFile_Sample-v2.1", "DockerFile_Expected-v2.2.4", false)]
@@ -26,28 +26,32 @@ namespace Automatize.Tests
         [TestCase("DockerFile_Sample-v2.1-mcr", "DockerFile_Linux_Expected-v2.2.4", true)]
         public void ShouldUpgradeDockerFile(string nameOfResourceFileWithContentToUpdate, string nameOfResourceFileWithExpectedContent, bool useLinuxBaseImage)
         {
-            TestUpgrade(nameOfResourceFileWithContentToUpdate, nameOfResourceFileWithExpectedContent, useLinuxBaseImage);
+            TestUpgrade(nameOfResourceFileWithContentToUpdate, nameOfResourceFileWithExpectedContent, useLinuxBaseImage, false);
         }
 
-        [TestCase("Sample.env", "Expected-v2.2.4.env", false)]
-        [TestCase("Sample-mrc.env", "Expected-v2.2.4.env", false)]
-        [TestCase("Sample.env", "Expected_Linux-v2.2.4.env", true)]
-        [TestCase("Sample-mrc.env", "Expected_Linux-v2.2.4.env", true)]
-        public void ShouldUpgradeEnvironmentFiles(string nameOfResourceFileWithContentToUpdate, string nameOfResourceFileWithExpectedContent, bool useLinuxBaseImage)
+        [TestCase("Sample.env", "Expected-v2.2.4.env", false, false)]
+        [TestCase("Sample-mrc.env", "Expected-v2.2.4.env", false, false)]
+        [TestCase("Sample.env", "Expected_Linux-v2.2.4.env", true, false)]
+        [TestCase("Sample-mrc.env", "Expected_Linux-v2.2.4.env", true, false)]
+        [TestCase("Sample.env", "Expected-Library-v2.2.4.env", false, true)]
+        [TestCase("Sample-mrc.env", "Expected-Library-v2.2.4.env", false, true)]
+        [TestCase("Sample.env", "Expected-Library_Linux-v2.2.4.env", true, true)]
+        [TestCase("Sample-mrc.env", "Expected-Library_Linux-v2.2.4.env", true, true)]
+        public void ShouldUpgradeEnvironmentFiles(string nameOfResourceFileWithContentToUpdate, string nameOfResourceFileWithExpectedContent, bool useLinuxBaseImage, bool isLibraryProject)
         {
-            TestUpgrade(nameOfResourceFileWithContentToUpdate, nameOfResourceFileWithExpectedContent, useLinuxBaseImage);
+            TestUpgrade(nameOfResourceFileWithContentToUpdate, nameOfResourceFileWithExpectedContent, useLinuxBaseImage, isLibraryProject);
         }
 
         [TestCase]
         public void ShouldThrowExceptionWhenXmlDocumentIsInvalid()
         {
-            TestUpgrade("InvalidXmlFile.csproj", "InvalidXmlFile.csproj", false);
+            TestUpgrade("InvalidXmlFile.csproj", "InvalidXmlFile.csproj", false, false);
         }
 
         [TestCase("sample-docker-compose.yml", "expected-docker-compose-v2.2.yml")]
         public void ShouldUpdateDockerComposeFile(string nameOfResourceFileWithContentToUpdate, string nameOfResourceFileWithExpectedContent)
         {
-            TestUpgrade(nameOfResourceFileWithContentToUpdate, nameOfResourceFileWithExpectedContent, false);
+            TestUpgrade(nameOfResourceFileWithContentToUpdate, nameOfResourceFileWithExpectedContent, false, false);
         }
     }
 }

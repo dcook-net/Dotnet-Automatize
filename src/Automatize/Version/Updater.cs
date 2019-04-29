@@ -39,7 +39,7 @@ namespace Automatize.Version
             _dockerComposeFileFinder = dockerComposeFileFinder;
         }
 
-        public void UpgradeToVersion(string path, bool useLinuxBaseImage)
+        public void UpgradeToVersion(string path, bool useLinuxBaseImage, bool isLibraryProject)
         {
             //Push these down to the methods below?
             var dockerFiles = _dockerFileFinder.Search(path);
@@ -51,32 +51,32 @@ namespace Automatize.Version
             //then work out which updater to use, rather than supply it on constructor.
 
             UpdateProjectFiles(projectFiles, useLinuxBaseImage);
-            UpdateDockerFiles(dockerFiles, useLinuxBaseImage);
-            UpdateEnvironmentFiles(envFiles, useLinuxBaseImage);
-            UpdateDockerComposeFiles(dockerComposeFiles);
+            UpdateDockerFiles(dockerFiles, useLinuxBaseImage, isLibraryProject);
+            UpdateEnvironmentFiles(envFiles, useLinuxBaseImage, isLibraryProject);
+            UpdateDockerComposeFiles(dockerComposeFiles, isLibraryProject);
         }
 
         private void UpdateProjectFiles(IEnumerable<FileInfo> projectFiles, bool useLinuxBaseImage)
         {
-            UpdateFiles(projectFiles, UpdateProjectFileContents, "No Project files found!", useLinuxBaseImage);
+            UpdateFiles(projectFiles, UpdateProjectFileContents, "No Project files found!", useLinuxBaseImage, false);
         }
 
-        private void UpdateDockerFiles(IEnumerable<FileInfo> dockerFiles, bool useLinuxBaseImage)
+        private void UpdateDockerFiles(IEnumerable<FileInfo> dockerFiles, bool useLinuxBaseImage, bool isLibraryProject)
         {
-            UpdateFiles(dockerFiles, UpdateDockerFileContent, "No Docker files found!", useLinuxBaseImage);
+            UpdateFiles(dockerFiles, UpdateDockerFileContent, "No Docker files found!", useLinuxBaseImage, isLibraryProject);
         }
 
-        private void UpdateEnvironmentFiles(IEnumerable<FileInfo> envFiles, bool useLinuxBaseImage)
+        private void UpdateEnvironmentFiles(IEnumerable<FileInfo> envFiles, bool useLinuxBaseImage, bool isLibraryProject)
         {
-            UpdateFiles(envFiles, UpdateEnvFileContent, "No .env files found!", useLinuxBaseImage);
+            UpdateFiles(envFiles, UpdateEnvFileContent, "No .env files found!", useLinuxBaseImage, isLibraryProject);
         }
 
-        private void UpdateDockerComposeFiles(IEnumerable<FileInfo> composeFiles)
+        private void UpdateDockerComposeFiles(IEnumerable<FileInfo> composeFiles, bool isLibraryProject)
         {
-            UpdateFiles(composeFiles, UpdateDockerComposeFileContent, "No Docker Compose files found!", false );
+            UpdateFiles(composeFiles, UpdateDockerComposeFileContent, "No Docker Compose files found!", false, isLibraryProject);
         }
 
-        private void UpdateFiles(IEnumerable<FileInfo> filesToUpdate, Func<string, bool, string> updateMethod, string noFilesFoundMessage, bool useLinuxBaseImage)
+        private void UpdateFiles(IEnumerable<FileInfo> filesToUpdate, Func<string, bool, bool, string> updateMethod, string noFilesFoundMessage, bool useLinuxBaseImage, bool isLibraryProject)
         {
             if (filesToUpdate is null || !filesToUpdate.Any())
             {
@@ -95,7 +95,7 @@ namespace Automatize.Version
                         content = streamReader.ReadToEnd();
                     }
 
-                    var updatedContent = updateMethod(content, useLinuxBaseImage);
+                    var updatedContent = updateMethod(content, useLinuxBaseImage, isLibraryProject);
 
                     _fileSystem.File.WriteAllText(fileInfo.FullName, updatedContent);
                 }
@@ -138,28 +138,28 @@ namespace Automatize.Version
             return packagesNeedUpdating;
         }
 
-        private string Update(string envFileContents, bool useLinuxBaseImage, string stringToFind, Func<bool, string> getImageVersion)
+        private string Update(string envFileContents, bool useLinuxBaseImage, bool isLibraryProject, string stringToFind, Func<bool, bool, string> getImageVersion)
         {
             var stringToReplace = FindLineToReplace(envFileContents, stringToFind);
-            var imageVersion = getImageVersion(useLinuxBaseImage);
+            var imageVersion = getImageVersion(useLinuxBaseImage, isLibraryProject);
 
             return stringToReplace is null 
                 ? envFileContents 
                 : envFileContents.Replace(stringToReplace, $"{stringToFind}{imageVersion}");
         }
 
-        private string UpdateSdkImage(string envFileContents, bool useLinuxBaseImage)
+        private string UpdateSdkImage(string envFileContents, bool useLinuxBaseImage, bool isLibraryProject)
         {
             const string dotnetSdkImage = "DOTNET_SDK_IMAGE=";
 
-            return Update(envFileContents, useLinuxBaseImage, dotnetSdkImage, GetSdkImageVersion);
+            return Update(envFileContents, useLinuxBaseImage, isLibraryProject, dotnetSdkImage, GetSdkImageVersion);
         }
 
-        private string UpdateRuntimeImage(string envFileContents, bool useLinuxBaseImage)
+        private string UpdateRuntimeImage(string envFileContents, bool useLinuxBaseImage, bool isLibraryProject)
         {
             const string dotnetRuntimeImage = "DOTNET_IMAGE=";
 
-            return Update(envFileContents, useLinuxBaseImage, dotnetRuntimeImage, GetRuntimeVersion);
+            return Update(envFileContents, useLinuxBaseImage, isLibraryProject, dotnetRuntimeImage, GetRuntimeVersion);
         }
 
         private static string FindLineToReplace(string stringContent, string stringToFind)
@@ -172,23 +172,28 @@ namespace Automatize.Version
             return stringContent.Substring(start, end - start);
         }
 
-        private string GetSdkImageVersion(bool useLinuxBaseImage)
+        private string GetSdkImageVersion(bool useLinuxBaseImage, bool _)
         {
-            return useLinuxBaseImage ? _dotNetVersionUpdater.LinuxSdkImageVersion : _dotNetVersionUpdater.AlpineSdkImageVersion;
+            var image = _dotNetVersionUpdater.LinuxSdkImageVersion;
+            
+            return useLinuxBaseImage ? image : image + Alpine.LatestVersion;
         }
 
-        private string GetRuntimeVersion(bool useLinuxBaseImage)
+        private string GetRuntimeVersion(bool useLinuxBaseImage, bool isLibraryProject)
         {
-            return useLinuxBaseImage ? _dotNetVersionUpdater.LinuxRuntimeImageVersion : _dotNetVersionUpdater.AlpineRuntimeImageVersion;
+            var image = isLibraryProject ? _dotNetVersionUpdater.LinuxPackageRuntimeImageVersion : _dotNetVersionUpdater.LinuxRuntimeImageVersion;
+
+            return useLinuxBaseImage ? image : image + Alpine.LatestVersion;
         }
         
-        private string UpdateProjectFileContents(string projectFileContents, bool useLinuxBaseImage)
+        private string UpdateProjectFileContents(string projectFileContents, bool useLinuxBaseImage, bool _)
         {
             var xmlDoc = new XmlDocument();
             xmlDoc.LoadXml(projectFileContents);
             xmlDoc.PreserveWhitespace = true;
 
             var xPathNavigator = xmlDoc.CreateNavigator();
+//            var outputType = xPathNavigator.SelectSingleNode("/PropertyGroup/OutputType");
             var targetFrameWorkNode = xPathNavigator.SelectSingleNode("/Project/PropertyGroup/TargetFramework");
             var targetFrameWorksNode = xPathNavigator.SelectSingleNode("/Project/PropertyGroup/TargetFrameworks");
             var metaPackageNode = xPathNavigator.SelectSingleNode("/Project/ItemGroup/PackageReference[@Include=\"Microsoft.AspNetCore.All\"]");
@@ -223,16 +228,16 @@ namespace Automatize.Version
             return xmlDoc.Format();
         }
 
-        private string UpdateEnvFileContent(string envFileContents, bool useLinuxBaseImage)
+        private string UpdateEnvFileContent(string envFileContents, bool useLinuxBaseImage, bool isLibraryProject)
         {
-            var updatedEnvFile = UpdateSdkImage(envFileContents, useLinuxBaseImage);
-            updatedEnvFile = UpdateRuntimeImage(updatedEnvFile, useLinuxBaseImage);
+            var updatedEnvFile = UpdateSdkImage(envFileContents, useLinuxBaseImage, isLibraryProject);
+            updatedEnvFile = UpdateRuntimeImage(updatedEnvFile, useLinuxBaseImage, isLibraryProject);
             updatedEnvFile = UpdateMonoVersion(updatedEnvFile);
 
             return updatedEnvFile;
         }
         
-        private string UpdateDockerComposeFileContent(string fileContents, bool _)
+        private string UpdateDockerComposeFileContent(string fileContents, bool _, bool isLibraryProject)
         {
             return fileContents.Replace(_dotNetVersionUpdater.CurrentFramework, _dotNetVersionUpdater.TargetFramework);
         }
@@ -246,9 +251,9 @@ namespace Automatize.Version
                 envFileContents.Replace(stringToReplace, $"{startPosition}{_dotNetVersionUpdater.MonoVersion}");
         }
 
-        private string UpdateDockerFileContent(string dockerFileContents, bool useLinuxBaseImage)
+        private string UpdateDockerFileContent(string dockerFileContents, bool useLinuxBaseImage, bool isLibraryProject)
         {
-            var updatedContent = UpdateFromStatement(dockerFileContents, useLinuxBaseImage);
+            var updatedContent = UpdateFromStatement(dockerFileContents, useLinuxBaseImage, isLibraryProject);
             return UpdateCopyStatement(updatedContent);
         }
 
@@ -257,7 +262,7 @@ namespace Automatize.Version
             return dockerFileContents.Replace(_dotNetVersionUpdater.CurrentFramework, _dotNetVersionUpdater.TargetFramework);
         }
 
-        private string UpdateFromStatement(string dockerFileContents, bool useLinuxBaseImage)
+        private string UpdateFromStatement(string dockerFileContents, bool useLinuxBaseImage, bool isLibraryProject)
         {
             const string fromStatement = "FROM microsoft/";
 
@@ -265,9 +270,9 @@ namespace Automatize.Version
 
             if (stringToReplace is null)
                 stringToReplace = FindLineToReplace(dockerFileContents, "FROM MCR.");
-            
-            var baseImageVersion = GetRuntimeVersion(useLinuxBaseImage);
 
+            var baseImageVersion = GetRuntimeVersion(useLinuxBaseImage, isLibraryProject); 
+            
             //TODO: Unit test required
             return stringToReplace is null
                 ? dockerFileContents

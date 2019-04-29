@@ -45,12 +45,12 @@ namespace Automatize.Tests
                 .ToList();
         }
 
-        protected void TestUpgrade(string nameOfResourceFileWithContentToUpdate, string nameOfResourceFileWithExpectedContent, bool useLinuxBaseImage)
+        protected void TestUpgrade(string nameOfResourceFileWithContentToUpdate, string nameOfResourceFileWithExpectedContent, bool useLinuxBaseImage, bool isLibraryProject)
         {
             SetupMockFileSystem(nameOfResourceFileWithContentToUpdate);
             var versionUpdater = CreateVersionUpdater(_mockFileSystem);
 
-            versionUpdater.UpgradeToVersion(_root, useLinuxBaseImage);
+            versionUpdater.UpgradeToVersion(_root, useLinuxBaseImage, isLibraryProject);
 
             AssertFileContentAsExpected(nameOfResourceFileWithContentToUpdate, nameOfResourceFileWithExpectedContent);
         }

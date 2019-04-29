@@ -1,4 +1,4 @@
-﻿FROM mcr.microsoft.com/dotnet/core/runtime:2.1.9
+﻿FROM mcr.microsoft.com/dotnet/core/aspnet:2.1.10
 
 COPY./src/EnquiryPresenter/bin/Release/netcoreapp2.1/publish/build
 

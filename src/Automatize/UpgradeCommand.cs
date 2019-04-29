@@ -23,6 +23,10 @@ namespace Automatize
             Description = "The Base image to use in your DockerFile. Valid options are 'Alpine' or 'Linux'")]
         public bool UseLinuxBaseImage { get; } = false;
 
+        [Option(CommandOptionType.NoValue, ShowInHelpText = true, ShortName = "p", LongName = "package",
+            Description = "Specifies whether the project being upgraded a package/library or not - determines which docker base image to use")]
+        public bool IsLibrary { get; } = false;
+
         [Option(CommandOptionType.SingleOrNoValue, ShowInHelpText = true, ShortName="mv", LongName = "minorversion", Description = "Specify which minor version of .Net Core you want 2 or 1. Major version is always 2 at the moment.")]
         public int MinorVersion { get; set; } = 2;
 
@@ -48,12 +52,13 @@ namespace Automatize
             }
 
             console.WriteLine($"Starting updating of {Path} to .Net Core v{MajorVersion}.{MinorVersion}");
+            console.WriteLine($"Project is a .Net Library: {IsLibrary}");
             
             var dotNetVersionUpdater = _versionUpdaterCollection.Find(MajorVersion, MinorVersion);
 
             var updater = _updaterFactory.Build(dotNetVersionUpdater);
 
-            updater.UpgradeToVersion(Path, UseLinuxBaseImage);
+            updater.UpgradeToVersion(Path, UseLinuxBaseImage, IsLibrary);
 
             return await Task.FromResult(0);
         }

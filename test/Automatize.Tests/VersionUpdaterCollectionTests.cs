@@ -21,9 +21,9 @@ namespace Automatize.Tests
             public string TargetFramework { get; set; }
             public string MinimumCommonLibVersion { get; set; }
             public string LinuxSdkImageVersion { get; set; }
-            public string AlpineSdkImageVersion { get; set; }
             public string LinuxRuntimeImageVersion { get; set; }
-            public string AlpineRuntimeImageVersion { get; set; }
+            
+            public string LinuxPackageRuntimeImageVersion { get; set; }
             public string MonoVersion { get; set; }
         }
 

@@ -10,10 +10,9 @@
         string MinimumCommonLibVersion { get; }
 
         string LinuxSdkImageVersion { get; }
-        string AlpineSdkImageVersion { get; }
 
         string LinuxRuntimeImageVersion { get; }
-        string AlpineRuntimeImageVersion { get; }
+        string LinuxPackageRuntimeImageVersion { get; }
 
         string MonoVersion { get; }
     }
